@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'flight.apps.FlightConfig',
     'penny.apps.PennyConfig',
+    'plans.apps.PlansConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
