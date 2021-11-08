@@ -23,7 +23,7 @@ class LaneListView(ListView):
     template_name = 'flight/home.html'
     context_object_name = 'lanes'
     ordering = ['-takeoff_time']
-    paginate_by = 5
+    paginate_by = 10
 
 class LaneDetailView(DetailView):
     model = Lane

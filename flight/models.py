@@ -6,14 +6,14 @@ from PIL import Image
 
 # Create your models here.
 class Lane(models.Model):
-    flight_name = models.CharField(max_length=20, verbose_name='航空公司')
-    flight_num = models.CharField(max_length=10, verbose_name='航班名称')
+    flight_name = models.CharField(max_length=20, verbose_name='航空公司', help_text='例如：成都航空')
+    flight_num = models.CharField(max_length=10, verbose_name='航班名称', help_text='例如：ZH7847')
     flight_date = models.DateField(auto_now_add=True, verbose_name='航班日期')
     takeoff_time = models.DateTimeField(default=timezone.now, verbose_name='起飞时间')
     arrive_time = models.DateTimeField(default=timezone.now, verbose_name='到达时间')
-    provenance = models.CharField(max_length=10, verbose_name='出发地点')
-    destination = models.CharField(max_length=10, verbose_name='到达地点')
-    note = models.TextField(max_length=1000, verbose_name='记录')
+    provenance = models.CharField(max_length=10, verbose_name='出发地点', help_text='例如：成都双流机场T2航站楼')
+    destination = models.CharField(max_length=10, verbose_name='到达地点', help_text='例如：上海虹桥机场T1航站楼')
+    note = models.TextField(max_length=1000, verbose_name='记录', help_text='按照书本一点不差的即兴发挥吧')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     picture = models.ImageField(default='lane_pics/default.jpg',
                                 upload_to='lane_pics',
