@@ -18,14 +18,14 @@ def home(request):
     }
     return render(request, 'flight/home.html', context)
 
-class LaneListView(ListView):
+class LaneListView(LoginRequiredMixin, ListView):
     model = Lane
     template_name = 'flight/home.html'
     context_object_name = 'lanes'
     ordering = ['-takeoff_time']
     paginate_by = 10
 
-class LaneDetailView(DetailView):
+class LaneDetailView(LoginRequiredMixin, DetailView):
     model = Lane
     """
     def get_queryset(self):

@@ -17,14 +17,14 @@ def home(request):
     }
     return render(request, 'penny/home.html', context)
 
-class StiverListView(ListView):
+class StiverListView(LoginRequiredMixin, ListView):
     model = Stiver
     template_name = 'penny/home.html'
     context_object_name = 'stivers'
     ordering = ['-date_created']
     paginate_by = 10
 
-class StiverDetailView(DetailView):
+class StiverDetailView(LoginRequiredMixin, DetailView):
     model = Stiver
     """
     def get_queryset(self):
