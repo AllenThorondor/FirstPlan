@@ -62,7 +62,7 @@ def add(request, *args, **kwargs):
         l_form = FlashForm(request.POST, request.FILES)
         if l_form.is_valid():
             l_form.save()
-            messages.success(request, f'Your account has been updated!')
+            messages.success(request, f'your flash have beed added,good job!')
     else:
         l_form = FlashForm()
     return render(request, 'flight/about.html', {'form' : l_form})

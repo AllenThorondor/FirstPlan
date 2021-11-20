@@ -20,3 +20,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+db.sqlite3
+.DS_Store
+/.DS_Store
