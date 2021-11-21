@@ -6,7 +6,6 @@ import pytesseract
 from PIL import Image, ImageDraw
 import sqlite3
 
-
 # Create your models here.
 class Record(models.Model):
     date = models.CharField(max_length=10, verbose_name='日期', null=True)
@@ -36,8 +35,7 @@ class Record(models.Model):
          'breath_score': (840, 2090, 904, 2160)}
 
         img = Image.open(self.picture.path).convert('L')
-        dbname = "db.sqlite3"
-        conn = sqlite3.connect(dbname)
+        conn = sqlite3.connect("./db.sqlite3")
         cur = conn.cursor()
 
         def tess_trans(coord_tuple):
@@ -54,7 +52,7 @@ class Record(models.Model):
             cur.execute(f'UPDATE health_record SET {key} = ? WHERE id = ?', (tess_trans(value), self.id))
         conn.commit()
         conn.close()
-        
+
         if img.height > 600 or img.width > 600:
             output_size = (600, 600)
             img.thumbnail(output_size)

@@ -155,4 +155,8 @@ dmypy.json
 db.sqlite3
 .DS_Store
 /.DS_Store
+<<<<<<< HEAD
 >>>>>>> 4ea5df6a4738382be5ebb2022edca98b71bf4da6
+=======
+media/*
+>>>>>>> ff9d3a99b11562b404ecda9c2547411c9aee8fd1
