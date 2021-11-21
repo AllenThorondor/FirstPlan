@@ -35,8 +35,7 @@ class Record(models.Model):
          'breath_score': (840, 2090, 904, 2160)}
 
         img = Image.open(self.picture.path).convert('L')
-        dbname = "./db.sqlite3"
-        conn = sqlite3.connect(dbname)
+        conn = sqlite3.connect("./db.sqlite3")
         cur = conn.cursor()
 
         def tess_trans(coord_tuple):
