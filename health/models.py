@@ -58,14 +58,8 @@ class Record(models.Model):
         sql_line = sql_line[:-1] + ' WHERE id = '+ str(self.id)
 
         cur.execute(sql_line)
-        
+
         if img.height > 600 or img.width > 600:
             output_size = (600, 600)
             img.thumbnail(output_size)
         img.save(self.picture.path)
-
-"""
-with transaction.atomic():
-    for key, value in coord.items():
-        cur.execute(f'UPDATE health_record SET {key} = ? WHERE id = ?', (tess_trans(value), self.id))
-"""
