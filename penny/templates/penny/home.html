@@ -3,35 +3,24 @@
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'stiver-create' %}">新的账单</a>
   </article>
-    <!--
-      <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    //-->
   {% for stiver in stivers %}
    <article class="media content-section">
      <div class="media-body">
        <div class="article-title">
          <h2>
            <font font size='5'>
-             <a class="article-title ml-2" href="{% url 'stiver-detail' stiver.id %}">{{ stiver.item }}</a>
-             <a class="article-title ml-4 mr-4" href="">💰</a>
-             <a class="article-title mr-2" href="">{{ stiver.money }}</a>
-           </font>
-           <font font size = '3'>
-
-             <small class="text-default ml-2">By</small>
-             <a class="article-title mr-2">{{ stiver.author }}</a>
-
-             <small class="text-default ml-2">@</small>
-             <a class="article-title mr-2">{{ stiver.date_created }}</a>
+             <a class="article-title ml-2" href="{% url 'stiver-detail' stiver.id %}">{{ stiver.money }}</a>
+             <a class="article-title ml-4 mr-4" href="{% url 'stiver-detail' stiver.id %}">💰</a>
+             <a class="article-title mr-2" href="{% url 'stiver-detail' stiver.id %}">{{ stiver.item }}</a>
            </font>
          </h2>
          <div class="article-metadata">
+
          </div>
-           <font font size='2'>
-             <small class="text-muted ml-2">{{ stiver.note }}</small>
-           </font>
+             <font font size = '3'>
+               <small class="text-muted ml-2">By {{ stiver.author }}</small>
+               <small class="text-muted ml-2">@ {{ stiver.date_created }}</small>
+             </font>
        </div>
      </div>
    </article>

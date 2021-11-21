@@ -33,8 +33,8 @@ class Lane(models.Model):
         super(Lane, self).save(*args, **kwargs)
         if self.picture.path is not "":
             img = Image.open(self.picture.path)
-            if img.height > 300 or img.width > 300:
-                output_size = (300, 300)
+            if img.height > 600 or img.width > 600:
+                output_size = (600, 600)
                 img.thumbnail(output_size)
                 img.save(self.picture.path)
         else:
@@ -67,8 +67,8 @@ class Flash(models.Model):
         if self.picture.path is not "":
             img = Image.open(self.picture.path)
 
-            if img.height > 300 or img.width > 300:
-                output_size = (300, 300)
+            if img.height > 600 or img.width > 600:
+                output_size = (600, 600)
                 img.thumbnail(output_size)
                 img.save(self.picture.path)
         else:

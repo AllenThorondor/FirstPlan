@@ -11,23 +11,17 @@
   {% for plan in plans %}
    <article class="media content-section">
      <div class="media-body">
-       <div class="article-title">
-         <h2>
-           <font font size='5'>
-             <a class="article-title ml-2" href="{% url 'plan-detail' plan.id %}">{{ plan.plan_detail }}</a>
-           </font>
-           <font font size = '3'>
+           <h2>
+             <font font size=5 >
+               <a class="article-title mr-2" href="{% url 'plan-detail' plan.id %}">{{ plan.plan_detail }}</a>
+             </font>
+           </h2>
+           <div class="article-metadata"></div>
 
-             <small class="text-default ml-2">By</small>
-             <a class="article-title mr-2">{{ plan.author }}</a>
-
-             <small class="text-default ml-2">@</small>
-             <a class="article-title mr-2">{{ plan.date_created }}</a>
-           </font>
-         </h2>
-         <div class="article-metadata">
-         </div>
-       </div>
+         <font font size = '3'>
+           <small class="text-muted mr-1">By {{ plan.author }}</small>
+           <small class="text-muted mr-1">@ {{ plan.date_created }}</small>
+         </font>
      </div>
    </article>
    {% endfor %}

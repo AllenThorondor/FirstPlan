@@ -46,8 +46,8 @@ class PlanUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super().form_valid(form)
 
     def test_func(self):
-        stiver = self.get_object()
-        if self.request.user == stiver.author:
+        plan = self.get_object()
+        if self.request.user == plan.author:
             return True
         return False
 
