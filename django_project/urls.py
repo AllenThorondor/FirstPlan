@@ -35,6 +35,7 @@ urlpatterns = [
     path('flight/', include("flight.urls")),
     path('penny/', include("penny.urls")),
     path('plans/', include("plans.urls")),
+    path('health/', include("health.urls")),
 ]
 
 if settings.DEBUG:

@@ -3,21 +3,28 @@
    <article class="media content-section">
      <div class="media-body">
        <div class="article-title">
-         <h2><a class="mr-2" href="#">{{ object.id }}</a>- <a class="article-title mr-2" href="#">{{object.item}}</a><a class="article-title" href="#">{{ object.money }}</a></h2>
+         <h2>
+           <font font size=5>
+             <a class="article-title mr-2" href="#">{{object.item}} 花费 {{ object.money }}</a>
+           </font>
+         </h2>
          <div class="article-metadata">
            {% if object.author == user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'stiver-update' object.id %}">Update</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'penny-home' %}">Back</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'stiver-delete' object.id %}">Delete</a>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">Add</a>
            {% endif %}
          </div>
        </div>
 
        <div class="">
-         <small class="text-muted mr-3">{{ object.author }}</small>
+         <font font size = '3'>
+           <small class="text-muted mr-2">By {{ stiver.author }}</small>
+           <small class="text-muted ml-2">@ {{ stiver.date_created }}</small>
+         </font>
        </div>
        <div class="">
-         <p>{{ object.note }}</p>
+         <p class="text-default mt-2">{{ object.note }}</p>
        </div>
      </div>
    </article>

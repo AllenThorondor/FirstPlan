@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+   <article class="media content-section">
+     <div class="media-body">
+       <div class="article-title">
+         <h2><a class="article-title" href="#">{{ object.date }}睡眠记录</a></h2>
+         <div class="article-metadata">
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'health-update' object.id%}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'health-delete' object.id%}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'health-home' %}">Back</a>
+         </div>
+       </div>
+
+       <div class="">
+         <small class="text-muted mr-3">对象：{{ object.author}}</small>
+       </div>
+       
+       <article class="section-content">
+         <li class="article-title mr-2" href="">总睡眠时长：{{ record.total_time }}</li>
+         <li class="article-title mr-2" href="">入睡时间：{{ record.get_bed_time }}</li>
+         <li class="article-title mr-2" href="">苏醒时间：{{ record.get_up_time }}</li>
+         <li class="article-title mr-2" href="">深睡时长：{{ record.deep_time }}</li>
+         <li class="article-title mr-2" href="">浅睡时长：{{ record.light_time }}</li>
+         <li class="article-title mr-2" href="">清醒时长：{{ record.sober_time }}</li>
+         <li class="article-title mr-2" href="">做梦时长：{{ record.dream_time }}</li>
+       </article>
+
+       <div class="media-body">
+         {% if object.picture.url != '' %}
+           <img src="{{ object.picture.url }}" alt="">
+         {% endif %}
+       </div>
+     </div>
+   </article>
+{% endblock content %}
