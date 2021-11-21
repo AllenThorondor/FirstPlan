@@ -1,10 +1,11 @@
-from django.db import models, connection
+from django.db import models, connection, DatabaseError, transaction
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 import pytesseract
 from PIL import Image, ImageDraw
 import sqlite3
+
 
 
 # Create your models here.
@@ -57,9 +58,14 @@ class Record(models.Model):
         sql_line = sql_line[:-1] + ' WHERE id = '+ str(self.id)
 
         cur.execute(sql_line)
-
-
+        
         if img.height > 600 or img.width > 600:
             output_size = (600, 600)
             img.thumbnail(output_size)
         img.save(self.picture.path)
+
+"""
+with transaction.atomic():
+    for key, value in coord.items():
+        cur.execute(f'UPDATE health_record SET {key} = ? WHERE id = ?', (tess_trans(value), self.id))
+"""
