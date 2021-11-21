@@ -1,10 +1,11 @@
-from django.db import models
+from django.db import models, connection
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 import pytesseract
 from PIL import Image, ImageDraw
 import sqlite3
+
 
 # Create your models here.
 class Record(models.Model):
@@ -35,8 +36,9 @@ class Record(models.Model):
          'breath_score': (840, 2090, 904, 2160)}
 
         img = Image.open(self.picture.path).convert('L')
-        conn = sqlite3.connect("./db.sqlite3")
-        cur = conn.cursor()
+        #conn = sqlite3.connect("db.sqlite3")
+
+        cur = connection.cursor()
 
         def tess_trans(coord_tuple):
             drawing_object = ImageDraw.Draw(img)
@@ -48,10 +50,14 @@ class Record(models.Model):
 
             return ''.join(temp_value.split())
 
+        sql_line = 'UPDATE health_record SET '
         for key, value in coord.items():
-            cur.execute(f'UPDATE health_record SET {key} = ? WHERE id = ?', (tess_trans(value), self.id))
-        conn.commit()
-        conn.close()
+            sql_line +=  f'{key} = "'+ tess_trans(value)+ '",'
+
+        sql_line = sql_line[:-1] + ' WHERE id = '+ str(self.id)
+
+        cur.execute(sql_line)
+
 
         if img.height > 600 or img.width > 600:
             output_size = (600, 600)
