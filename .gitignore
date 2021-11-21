@@ -20,6 +20,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -149,3 +150,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+=======
+
+db.sqlite3
+.DS_Store
+/.DS_Store
+>>>>>>> 4ea5df6a4738382be5ebb2022edca98b71bf4da6

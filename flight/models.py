@@ -55,7 +55,7 @@ class Flash(models.Model):
                             null=True, help_text='对应行程')
 
     class Meta:
-        verbose_name = '那些回忆'
+        verbose_name = 'flashes'
         verbose_name_plural = verbose_name
 
     def __str__(self):

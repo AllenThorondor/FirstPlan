@@ -9,13 +9,13 @@ from django.views.generic import (
     DeleteView)
 from .models import Post
 
-
+"""
 def home(request):
     context = {
         'posts' : Post.objects.all()
     }
     return render(request, 'blog/home.html', context)
-
+"""
 
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
@@ -25,7 +25,8 @@ class PostListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 
-class UserPostListView(ListView):
+
+class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/user_posts.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
