@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 import pytesseract
 from PIL import Image, ImageDraw
-import sqlite3
 
 
 
@@ -37,7 +36,6 @@ class Record(models.Model):
          'breath_score': (840, 2090, 904, 2160)}
 
         img = Image.open(self.picture.path).convert('L')
-        #conn = sqlite3.connect("db.sqlite3")
 
         cur = connection.cursor()
 
