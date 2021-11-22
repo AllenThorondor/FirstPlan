@@ -65,7 +65,8 @@ def add(request, *args, **kwargs):
             messages.success(request, f'your flash have beed added,good job!')
     else:
         l_form = FlashForm()
-    return render(request, 'flight/about.html', {'form' : l_form})
+    return render(request, 'flight/add.html', {'form' : l_form})
+
 
 class LaneDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Lane
