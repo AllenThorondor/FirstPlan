@@ -14,7 +14,7 @@
          {% if object.author == user %}
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-update' object.id %}">Update</a>
           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'plan-delete' object.id %}">Delete</a>
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">#</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-home' %}">Back</a>
          {% endif %}
        </div>
      </div>

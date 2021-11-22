@@ -10,7 +10,11 @@
       </fieldset>
       <div class="form-group">
         <button class="btn btn-outline-info" type="submit">发表</button>
+        {% if object.id %}
         <a class="btn btn-outline-secondary" href="{% url 'stiver-detail' object.id %}">取消</a>
+        {% else %}
+        <a class="btn btn-outline-secondary" href="{% url 'penny-home' %}">取消</a>
+        {% endif %}
       </div>
     </form>
 

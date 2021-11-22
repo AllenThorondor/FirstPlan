@@ -6,7 +6,19 @@
       {% csrf_token %}
       <fieldset class="form-group">
         <legend class="border-bottom mb-4">删除记录</legend>
-        <h2>Are you sure you want to delete the stiver "{{ object.item }}  {{ object.money }}"</h2>
+        <font font size='4'><a class="text-muted mr-2">请确认是否移除该条账单:</a></font>
+        <div class="">
+          <font font size='3'>
+            <a class="text-muted mr-2">账单金额：</a>
+            <a class="text-info mr-2">{{ object.money }}</a>
+          </font>
+        </div>
+        <div class="">
+          <font font size='3'>
+            <a class="text-muted mr-2">账单内容：</a>
+            <a class="text-info mr-2">{{ object.item }} </a>
+          </font>
+        </div>
       </fieldset>
       <div class="form-group">
         <button class="btn btn-outline-danger" type="submit">删除</button>
