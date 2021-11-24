@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+
     <meta charset="utf-8">
     {% if title %}
       <title>第一计划 - {{ title }}</title>
@@ -22,13 +24,13 @@
         <header class="site-header">
           <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-              <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">第一计划</a>
+              <a class="navbar-brand mr-4" href="{% url 'plan-home' %}">第一计划</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                  <a class="nav-item nav-link" href="{% url 'blog-home' %}">主页</a>
+                  <a class="nav-item nav-link" href="{% url 'blog-home' %}">想法</a>
                   <a class="nav-item nav-link" href="{% url 'blog-about' %}">关于</a>
                   <a class="nav-item nav-link" href="{% url 'plan-home' %}">任务系统</a>
                   <a class="nav-item nav-link" href="{% url 'penny-home' %}">记账功能</a>
