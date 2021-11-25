@@ -3,16 +3,14 @@
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'plan-create' %}">新的任务</a>
   </article>
-    <!--
-      <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    //-->
+
   {% for plan in plans %}
+  {% if plan.plan_state == 0 %}
    <article class="media content-section">
      <div class="media-body">
            <h2>
-             <font font size=5 >
+             <font font size=3 >
+               <!--span class="oi" data-glyph="media-pause" title="media-pause" aria-hidden="true"></span-->
                <a class="article-title mr-2" href="{% url 'plan-detail' plan.id %}">{{ plan.plan_detail }}</a>
              </font>
            </h2>
@@ -24,9 +22,44 @@
          </font>
      </div>
    </article>
+   {% endif %}
+   {% endfor %}
+   <h2>
+     <font font size=5 >
+       <a class="article-title ml-2" href="">已完成的任务：</a>
+     </font>
+   </h2>
+   {% for plan in plans %}
+   {% if plan.plan_state == 1 %}
+   <article class="media content-section">
+     <div class="media-body">
+           <h2>
+             <font font size=3 >
+               <!--span class="oi" data-glyph="media-pause" title="media-pause" aria-hidden="true"></span-->
+               <span class="oi" data-glyph="check"></span>
+               <a class="article-title mr-2" href="{% url 'plan-detail' plan.id %}">{{ plan.plan_detail }}</a>
+             </font>
+           </h2>
+           <div class="article-metadata"></div>
+
+         <font font size = '3'>
+           <small class="text-muted mr-1">By {{ plan.author }}</small>
+           <small class="text-muted mr-1">@ {{ plan.date_created }}</small>
+         </font>
+     </div>
+   </article>
+   {% endif %}
    {% endfor %}
 
-
+   {% for plan in plans %}
+   {% if plan.plan_state == None %}
+   <h2>
+     <font font size=5 >
+       <a class="article-title mr-2" href="">未归档的任务：</a>
+     </font>
+   </h2>
+   {% endif %}
+   {% endfor %}
    {% if is_paginated %}
      {% if page_obj.has_previous %}
        <a class="btn btn-outline-info mb-4" href="?page=1">首页</a>

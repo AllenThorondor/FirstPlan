@@ -44,18 +44,37 @@ class Lane(models.Model):
 def get_flash_id(Lane):
     return Lane.get_lane_id()
 
+class LaneImage(models.Model):
+    lane = models.ForeignKey(Lane, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(default='flash_pics/default.jpg',
+                                upload_to='flash_pics',
+                                blank=True)
+    def __str__(self):
+        return str(self.lane.id)
+
+    def save(self, *args, **kwargs):
+        super(Lane, self).save(*args, **kwargs)
+        if self.image.path is not "":
+            img = Image.open(self.image.path)
+            if img.height > 600 or img.width > 600:
+                output_size = (600, 600)
+                img.thumbnail(output_size)
+                img.save(self.image.path)
+        else:
+            pass
 
 class Flash(models.Model):
+    lane = models.ForeignKey(Lane, default=None, on_delete=models.CASCADE,
+                            null=True, help_text='对应行程')
     story = models.TextField(null=True, verbose_name='故事', help_text='写下那些故事吧')
     picture = models.ImageField(default='flash_pics/default.jpg',
                                 upload_to='flash_pics',
                                 blank=True)
     update_time = models.DateTimeField(auto_now_add=True, help_text='更新时间')
-    lane = models.ForeignKey(Lane, on_delete=models.SET_NULL,
-                            null=True, help_text='对应行程')
+
 
     class Meta:
-        verbose_name = 'flashes'
+        verbose_name = 'flashs'
         verbose_name_plural = verbose_name
 
     def __str__(self):

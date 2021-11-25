@@ -24,6 +24,7 @@ class Record(models.Model):
     picture = models.ImageField(upload_to='health_pics',
                                 blank=True,
                                 help_text='待解析图片')
+    date_posted = models.DateTimeField(default=timezone.now, verbose_name='发布时间', null=True)
 
     def save(self, *args, **kwargs):
         super(Record, self).save(*args, **kwargs)
