@@ -7,7 +7,8 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView)
-from .models import Lane, Flash
+from django.contrib.auth.decorators import login_required
+from .models import Lane, Flash, LaneImage
 from .forms import FlashForm
 from django.http import HttpResponse
 
@@ -25,13 +26,43 @@ class LaneListView(LoginRequiredMixin, ListView):
     ordering = ['-takeoff_time']
     paginate_by = 10
 
+@login_required
+def detail_view(request, pk, *args, **kwargs):
+    lane = get_object_or_404(Lane, id = pk)
+    photos = LaneImage.objects.filter(lane=lane)
+    flashs = Flash.objects.filter(lane=lane)
+    return render(request, 'flight/lane_detail.html', {
+        'lane' : lane,
+        'photos' : photos,
+        'flashs' : flashs
+    })
+"""
 class LaneDetailView(LoginRequiredMixin, DetailView):
     model = Lane
-    """
+
     def get_queryset(self):
-        laneId = get_object_or_404(Lane, id=self.kwargs.get('id'))
-        return Flash.objects.filter(lane=laneId).order_by('-update_time')
-        """
+        lane = get_object_or_404(Lane, id=self.kwargs.get('id'))
+        photos = LaneImage.objects.filter(lane=lane)
+
+        context = super().get_queryset(**kwargs)
+        context['photos'] = photos
+        return context
+    #Flash.objects.filter(lane=laneId).order_by('-update_time')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['book_list'] = Book.objects.all()
+        return context
+
+    def get_queryset(self):
+        # original qs
+        qs = super().get_queryset()
+        # filter by a variable captured from url, for example
+        return qs.filter(name_startswith=self.kwargs['name'])
+"""
+
 
 
 class LaneCreateView(LoginRequiredMixin, CreateView):

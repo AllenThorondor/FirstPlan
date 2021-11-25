@@ -3,33 +3,46 @@
    <article class="media content-section">
      <div class="media-body">
        <div class="article-title">
-         <h2><a class="mr-2" href="#">{{ object.id }}</a>- <a class="article-title mr-2" href="#">{{object.flight_name}}</a><a class="article-title" href="#">{{ object.flight_num }}</a></h2>
+         <h2><a class="mr-2" href="#">{{ lane.id }}</a>- <a class="article-title mr-2" href="#">{{lane.flight_name}}</a><a class="article-title" href="#">{{ lane.flight_num }}</a></h2>
          <div class="article-metadata">
-           {% if object.author == user %}
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lane-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'lane-delete' object.id %}">Delete</a>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lane-add' object.id %}">Add</a>
+           {% if lane.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lane-update' lane.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'lane-delete' lane.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lane-add' lane.id %}">Add</a>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'flight-home' %}">Back</a>
            {% endif %}
          </div>
        </div>
        <div class="">
-         <small class="mr-2">{{ object.flight_date }}</small>
-         <small class="text-muted mr-3">{{ object.takeoff_time }} - {{ object.arrive_time }}</small>
-         <small class="text-muted mr-3">{{ object.provenance }} - {{ object.destination }}</small>
+         <small class="mr-2">{{ lane.flight_date }}</small>
+         <small class="text-muted mr-3">{{ lane.takeoff_time }} - {{ lane.arrive_time }}</small>
+         <small class="text-muted mr-3">{{ lane.provenance }} - {{ lane.destination }}</small>
        </div>
 
        <div class="">
-         <small class="text-muted mr-3">{{ object.author }}</small>
+         <small class="text-muted mr-3">{{ lane.author }}</small>
        </div>
        <div class="">
-         <p>{{ object.note }}</p>
+         <p>{{ lane.note }}</p>
        </div>
        <div class="">
-          {% if object.picture.url != '' %}
-            <img class="rounded float-left" src="{{ object.picture.url }}" alt="">
+          {% if lane.picture.url != '' %}
+            <img class="rounded float-left" src="{{ lane.picture.url }}" alt="">
+            {% for photo in photos %}
+              <img class="rounded float-left" src="{{ photo.image.url }}" alt="">
+            {% endfor %}
           {% endif %}
        </div>
      </div>
    </article>
+
+   {% for flash in flashs %}
+   <article class="media content-section">
+     <div class="">
+       <p>{{ flash.story }}</p>
+       <p>{{ update_time }}</p>
+       <img class="rounded float-left" src="{{ flash.picture.url }}" alt="">
+     </div>
+   </article>
+   {% endfor %}
 {% endblock content %}

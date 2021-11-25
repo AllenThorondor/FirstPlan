@@ -15,4 +15,5 @@ urlpatterns = [
     path('plan/new/', PlanCreateView.as_view(), name = "plan-create"),
     path('plan/<int:pk>/update', PlanUpdateView.as_view(), name = "plan-update"),
     path('plan/<int:pk>/delete', PlanDeleteView.as_view(), name = "plan-delete"),
+    path('plan/<int:pk>/check', views.PlanCheck, name = 'plan-check'),
 ]

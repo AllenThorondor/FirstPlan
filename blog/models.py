@@ -14,3 +14,11 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs = {'pk': self.pk})
+
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(default='flash_pics/default.jpg',
+                                upload_to='flash_pics',
+                                blank=True)
+    def __str__(self):
+        return self.post.title

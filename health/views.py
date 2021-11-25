@@ -20,13 +20,19 @@ def home(request):
     }
     return render(request, 'health/home.html', context)
 
+class RecordListView(LoginRequiredMixin, ListView):
+    model = Record
+    template_name = 'health/home.html'  #<app>/<model>_<viewtype>.html
+    context_object_name = 'records'
+    #ordering = ['-date_posted']
+    paginate_by = 10
 
 def add(request, *args, **kwargs):
     if request.method =='POST':
         l_form = RecordForm(request.POST, request.FILES)
         if l_form.is_valid():
             l_form.save()
-            messages.success(request, f'show yes!')
+            messages.success(request, f'图片解析完成，请返回详情页查看!')
     else:
         l_form = RecordForm()
     return render(request, 'health/add.html', {'form' : l_form})
