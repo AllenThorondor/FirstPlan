@@ -20,7 +20,13 @@
            <small class="text-muted mr-1">By {{ plan.author }}</small>
            <small class="text-muted mr-1">@ {{ plan.date_created }}</small>
          </font>
+         <div class="" style="display:flex">
+           {% for tag in plan.tags.all %}
+           <a href="{% url 'plan-tagged' tag.id %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+           {% endfor %}
+         </div>
      </div>
+
    </article>
    {% endif %}
    {% endfor %}

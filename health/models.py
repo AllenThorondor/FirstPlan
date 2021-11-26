@@ -44,7 +44,7 @@ class Record(models.Model):
             drawing_object = ImageDraw.Draw(img)
             drawing_object.rectangle(coord_tuple, fill=None, outline="red")
             little_sign = img.crop(coord_tuple)
-            temp_value = pytesseract.image_to_string(little_sign, lang='chi_sim')
+            temp_value = pytesseract.image_to_string(little_sign, lang='chi_sim', config='--psm 6 --oem 3 -c tessedic_char_whitelist=0123456789')
             if temp_value == '':
                 temp_value = pytesseract.image_to_string(little_sign, config='--psm 6 --oem 3 -c tessedic_char_whitelist=0123456789')
 
