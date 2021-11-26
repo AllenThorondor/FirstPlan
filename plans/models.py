@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
@@ -15,6 +16,7 @@ class Plan(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     plan_state = models.IntegerField(verbose_name='任务状态', default = 0, null=True)
+    tags = TaggableManager()
 
 
     def __str__(self):
