@@ -10,13 +10,13 @@ from django.views.generic import (
 from .models import Post
 from taggit.models import Tag
 
-"""
-def home(request):
+
+def moments(request):
     context = {
         'posts' : Post.objects.all()
     }
-    return render(request, 'blog/home.html', context)
-"""
+    return render(request, 'blog/moments.html', context)
+
 
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
