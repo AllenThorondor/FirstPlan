@@ -27,9 +27,9 @@
        </div>
        <div class="">
           {% if lane.picture.url != '' %}
-            <img class="rounded float-left" src="{{ lane.picture.url }}" alt="">
+            <img class="img-responsive" src="{{ lane.picture.url }}" alt="">
             {% for photo in photos %}
-              <img class="rounded float-left" src="{{ photo.image.url }}" alt="">
+              <img class="img-responsive" src="{{ photo.image.url }}" alt="">
             {% endfor %}
           {% endif %}
        </div>
@@ -45,7 +45,7 @@
      </div>
      <div class="carousel-inner">
        <div class="carousel-item active" data-bs-interval="10000">
-         <img src="{{ lane.picture.url }}" class="d-block w-10000" alt="...">
+         <img src="{{ lane.picture.url }} " class="d-block w-10000" alt="...">
          <div class="carousel-caption d-none d-md-block">
            <h5>{{ update_time }}</h5>
            <p>{{ flash.story }}</p>
