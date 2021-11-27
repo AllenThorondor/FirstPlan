@@ -2,7 +2,7 @@
 {% block content %}
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'post-create'%}">新的想法</a>
-    <a class="btn btn-outline-secondary" href="{% url 'blog-moment'%}">图片鉴赏</a>
+    <a class="btn btn-outline-secondary" href="{% url 'moments-home'%}">图片鉴赏</a>
   </article>
     {% for post in posts %}
     <!-- here is the article style starts -->

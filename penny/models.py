@@ -10,7 +10,7 @@ class Tag(models.Model):
 
 class Stiver(models.Model):
     item = models.CharField(max_length=20, verbose_name='名称', null=True)
-    money = models.IntegerField(verbose_name='金额', null=True)
+    money = models.FloatField(verbose_name='金额', null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     note = models.TextField(max_length=1000, null=True, verbose_name='记录')
