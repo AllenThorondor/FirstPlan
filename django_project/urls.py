@@ -36,6 +36,7 @@ urlpatterns = [
     path('penny/', include("penny.urls")),
     path('plans/', include("plans.urls")),
     path('health/', include("health.urls")),
+    path('moments/', include("moments.urls")),
 ]
 
 if settings.DEBUG:
