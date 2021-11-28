@@ -325,39 +325,19 @@ FACEBOOK: https://www.facebook.com/themefisher
 <img src="/media/moment_pics/IMG_1002.JPG" class="d-block w-100" alt="..."-->
 
 <div class="hero-slider">
-  <div class="slider-item th-fullpage hero-area" style="background-image: url(/media/moment_pics/IMG_0889.JPG);">
+  {% for collection in collections %}
+  <div class="slider-item th-fullpage hero-area" style="background-image: url({{collection.cover_image.url}});">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 text-center">
-          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p>
-          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">The beauty of nature <br> is hidden in details.</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">{{ collection.date_created }}</p>
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">{{ collection.discription }} <br>{{ collection.note }}</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="{% url 'moments-detail' collection.id%}">进入专题</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="slider-item th-fullpage hero-area" style="background-image: url(/media/moment_pics/IMG_0926.JPG);">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 text-left">
-          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p>
-          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">The beauty of nature <br> is hidden in details.</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slider-item th-fullpage hero-area" style="background-image: url(/media/moment_pics/IMG_0965.JPG);">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 text-right">
-          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p>
-          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">The beauty of nature <br> is hidden in details.</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% endfor %}
 </div>
 
 

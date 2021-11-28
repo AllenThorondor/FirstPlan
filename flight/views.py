@@ -40,27 +40,12 @@ def detail_view(request, pk, *args, **kwargs):
 class LaneDetailView(LoginRequiredMixin, DetailView):
     model = Lane
 
-    def get_queryset(self):
-        lane = get_object_or_404(Lane, id=self.kwargs.get('id'))
-        photos = LaneImage.objects.filter(lane=lane)
-
-        context = super().get_queryset(**kwargs)
-        context['photos'] = photos
-        return context
-    #Flash.objects.filter(lane=laneId).order_by('-update_time')
-
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['book_list'] = Book.objects.all()
+        context['photos'] = LaneImage.objects.filter(lane=lane)
+        context['flashes'] = Flash.objects.filter(lane=lane)
         return context
 
-    def get_queryset(self):
-        # original qs
-        qs = super().get_queryset()
-        # filter by a variable captured from url, for example
-        return qs.filter(name_startswith=self.kwargs['name'])
 """
 
 

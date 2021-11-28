@@ -2,7 +2,6 @@
 {% block content %}
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'post-create'%}">新的想法</a>
-    <a class="btn btn-outline-secondary ml-4" href="{% url 'moments-home'%}">图片鉴赏</a>
   </article>
     <p>Common Tags:
             {% for mt in common_tags %}
