@@ -25,6 +25,11 @@ class PostListView(LoginRequiredMixin, ListView):
     ordering = ['-date_posted']
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['common_tags'] = Post.tags.most_common()[:4]
+        return context
+
 
 
 class UserPostListView(LoginRequiredMixin, ListView):
