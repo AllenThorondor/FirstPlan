@@ -1,20 +1,45 @@
 from django.urls import path
 from .views import (
     CollectionListView,
+    PersonListView,
+    EventListView,
     #LaneDetailView,
     CollectionCreateView,
+    PersonCreateView,
+    EventCreateView,
     CollectionUpdateView,
+    PersonUpdateView,
+    EventUpdateView,
     CollectionDeleteView,
+    PersonDeleteView,
+    EventDeleteView,
     )
 from . import views
 
 urlpatterns = [
     path('', views.index, name = "moments-index"),
+    path('shop/<int:pk>/collection', views.collection_shop, name = "collection-shop"),
+    path('shop/<int:pk>/person', views.person_shop, name = "person-shop"),
+    path('shop/<int:pk>/event', views.event_shop, name = "event-shop"),
+
     path('home/', CollectionListView.as_view(), name = "moments-home"),
-    path('collection/<int:pk>/', views.detail_view, name = "collection-detail"),
-    path('moments/<int:pk>/', views.shop, name = "moments-detail"),
+    path('collection/<int:pk>/', views.collection_detail_view, name = "collection-detail"),
     path('collection/<int:pk>/update', CollectionUpdateView.as_view(), name = "collection-update"),
     path('collection/<int:pk>/delete', CollectionDeleteView.as_view(), name = "collection-delete"),
-    path('collection/<int:pk>/add', views.add, name = "collection-add"),
+    path('collection/<int:pk>/add', views.add_collection, name = "collection-add"),
     path('collection/new/', CollectionCreateView.as_view(), name = "collection-create"),
+
+    path('person/', PersonListView.as_view(), name = "person-home"),
+    path('person/<int:pk>/', views.person_detail_view, name = "person-detail"),
+    path('person/<int:pk>/update', PersonUpdateView.as_view(), name = "person-update"),
+    path('person/<int:pk>/delete', PersonDeleteView.as_view(), name = "person-delete"),
+    path('person/<int:pk>/add', views.add_person, name = "person-add"),
+    path('person/new/', PersonCreateView.as_view(), name = "person-create"),
+
+    path('event/', EventListView.as_view(), name = "event-home"),
+    path('event/<int:pk>/', views.event_detail_view, name = "event-detail"),
+    path('event/<int:pk>/update', EventUpdateView.as_view(), name = "event-update"),
+    path('event/<int:pk>/delete', EventDeleteView.as_view(), name = "event-delete"),
+    path('event/<int:pk>/add', views.add_event, name = "event-add"),
+    path('event/new/', EventCreateView.as_view(), name = "event-create"),
 ]
