@@ -26,7 +26,6 @@ class Collection(models.Model):
     def get_collection_id(self):
         return str(self.id)
 
-
 class CollectionImage(models.Model):
     collection = models.ForeignKey(Collection, default=None, on_delete=models.CASCADE)
     image = models.ImageField(
@@ -59,11 +58,10 @@ class Person(models.Model):
         return str(self.person_name)
 
     def get_absolute_url(self):
-        return reverse('collection-detail', kwargs={'pk':self.pk})
+        return reverse('person-detail', kwargs={'pk':self.pk})
 
     def get_person_id(self):
         return str(self.id)
-
 
 class PersonImage(models.Model):
     person = models.ForeignKey(Person, default=None, on_delete=models.CASCADE)
@@ -79,6 +77,7 @@ class PersonImage(models.Model):
 
     def __str__(self):
         return str(self.Person.id)
+
 
 class Event(models.Model):
     event_name = models.CharField(max_length=20, verbose_name='事件名称', help_text='例如：新宿事件')
@@ -96,11 +95,10 @@ class Event(models.Model):
         return str(self.event_name)
 
     def get_absolute_url(self):
-        return reverse('collection-detail', kwargs={'pk':self.pk})
+        return reverse('event-detail', kwargs={'pk':self.pk})
 
     def get_event_id(self):
         return str(self.id)
-
 
 class EventImage(models.Model):
     event = models.ForeignKey(Event, default=None, on_delete=models.CASCADE)
