@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+   <article class="media content-section">
+     <div class="media-body">
+       <div class="article-title">
+         <h2><a class="mr-2" href="#">{{ person.id }}</a>- <a class="article-title mr-2" href="#">{{ person.person_name}}</a></h2>
+         <div class="article-metadata">
+           {% if person.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-update' person.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'person-delete' person.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-add' person.id %}">Add</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-home' %}">Back</a>
+           {% endif %}
+         </div>
+       </div>
+       <div class="">
+         <small class="mr-2">{{ person.discription }}</small>
+         <small class="text-muted mr-3">{{ person.note }}</small>
+
+       </div>
+
+       <div class="">
+         <small class="text-muted mr-3">{{ lane.author }}</small>
+       </div>
+       <div class="">
+         <p>{{ person.date_created }}</p>
+       </div>
+       <div class="">
+          {% if person.cover_image.url != '' %}
+            <img class="img-thumbnail" src="{{ person.cover_image.url }}" alt="">
+            {% for photo in photos %}
+              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <p>{{ photo.story }}</p>
+            {% endfor %}
+          {% endif %}
+       </div>
+     </div>
+   </article>
+
+{% endblock content %}

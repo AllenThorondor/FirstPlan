@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+   <article class="media content-section">
+     <div class="media-body">
+       <div class="article-title">
+         <h2><a class="mr-2" href="#">{{ event.id }}</a>- <a class="article-title mr-2" href="#">{{event.event_name}}</a></h2>
+         <div class="article-metadata">
+           {% if event.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-update' event.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'event-delete' event.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-add' event.id %}">Add</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-home' %}">Back</a>
+           {% endif %}
+         </div>
+       </div>
+       <div class="">
+         <small class="mr-2">{{ event.discription }}</small>
+         <small class="text-muted mr-3">{{ event.note }}</small>
+
+       </div>
+
+       <div class="">
+         <small class="text-muted mr-3">{{ event.author }}</small>
+       </div>
+       <div class="">
+         <p>{{ event.date_created }}</p>
+       </div>
+       <div class="">
+          {% if event.cover_image.url != '' %}
+            <img class="img-thumbnail" src="{{ event.cover_image.url }}" alt="">
+            {% for photo in photos %}
+              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <p>{{ photo.story }}</p>
+            {% endfor %}
+          {% endif %}
+       </div>
+     </div>
+   </article>
+
+{% endblock content %}

@@ -36,7 +36,26 @@
                   <a class="nav-item nav-link" href="{% url 'penny-home' %}">记账功能</a>
                   <a class="nav-item nav-link" href="{% url 'flight-home' %}">航班登机</a>
                   <a class="nav-item nav-link" href="{% url 'health-home' %}">睡眠统计</a>
-                  <a class="nav-item nav-link" href="{% url 'moments-home' %}">图片专题</a>
+                  <div class="navbar-nav dropdown ">
+                      <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">图片管理
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation">
+                              <a class="nav-item nav-link" tabindex="-1" href="{% url 'moments-home' %}">图片专题</a>
+                          </li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation">
+                              <a class="nav-item nav-link" tabindex="-1" href="{% url 'person-home' %}">图片人物</a>
+                          </li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation">
+                              <a class="nav-item nav-link" tabindex="-1" href="{% url 'event-home' %}">图片事件</a>
+                          </li>
+                      </ul>
+                  </div>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
