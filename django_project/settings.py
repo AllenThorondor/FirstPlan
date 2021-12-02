@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'penny.apps.PennyConfig',
     'plans.apps.PlansConfig',
     'health.apps.HealthConfig',
+    'moments.apps.MomentsConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taggit',
-    'moments.apps.MomentsConfig'
+
 ]
 
 MIDDLEWARE = [
