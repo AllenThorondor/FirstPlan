@@ -72,7 +72,7 @@ class PersonImage(models.Model):
     update_time = models.DateTimeField(auto_now_add=True, help_text='更新时间')
 
     class Meta:
-        verbose_name = '专题图片集'
+        verbose_name = '人物图片集'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -109,7 +109,7 @@ class EventImage(models.Model):
     update_time = models.DateTimeField(auto_now_add=True, help_text='更新时间')
 
     class Meta:
-        verbose_name = '专题图片集'
+        verbose_name = '事件图片集'
         verbose_name_plural = verbose_name
 
     def __str__(self):
