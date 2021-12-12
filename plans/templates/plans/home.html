@@ -2,6 +2,7 @@
 {% block content %}
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'plan-create' %}">新的任务</a>
+    <a class="btn btn-outline-secondary ml-2" href="{% url 'completed-plan-home' %}">完成任务</a>
   </article>
 
   {% for plan in plans %}
@@ -30,13 +31,13 @@
    </article>
    {% endif %}
    {% endfor %}
+
    <h2>
      <font font size=5 >
        <a class="article-title ml-2" href="">已完成的任务：</a>
      </font>
    </h2>
-   {% for plan in plans %}
-   {% if plan.plan_state == 1 %}
+   {% for plan in completed_plans %}
    <article class="media content-section">
      <div class="media-body">
            <h2>
@@ -52,10 +53,15 @@
            <small class="text-muted mr-1">By {{ plan.author }}</small>
            <small class="text-muted mr-1">@ {{ plan.date_created }}</small>
          </font>
+         <div class="" style="display:flex">
+           {% for tag in plan.tags.all %}
+           <a href="{% url 'plan-tagged' tag.id %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+           {% endfor %}
+         </div>
      </div>
    </article>
-   {% endif %}
    {% endfor %}
+
 
    {% for plan in plans %}
    {% if plan.plan_state == None %}
