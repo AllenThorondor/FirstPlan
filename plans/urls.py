@@ -4,13 +4,15 @@ from .views import (
     PlanDetailView,
     PlanCreateView,
     PlanUpdateView,
-    PlanDeleteView
+    PlanDeleteView,
+    CompletedPlanListView
     )
 from . import views
 
 
 urlpatterns = [
     path('', PlanListView.as_view(), name = "plan-home"),
+    path('completed/', CompletedPlanListView.as_view(), name = "completed-plan-home"),
     path('plan/<int:pk>/', PlanDetailView.as_view(), name = "plan-detail"),
     path('plan/new/', PlanCreateView.as_view(), name = "plan-create"),
     path('plan/<int:pk>/update', PlanUpdateView.as_view(), name = "plan-update"),

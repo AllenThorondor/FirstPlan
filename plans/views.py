@@ -40,7 +40,24 @@ class PlanListView(LoginRequiredMixin, ListView):
     template_name = 'plans/home.html'
     context_object_name = 'plans'
     ordering = ['-date_created']
-    paginate_by = 10
+    #paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['plans'] = Plan.objects.filter(plan_state=0)
+        return context
+
+
+class CompletedPlanListView(LoginRequiredMixin, ListView):
+    model = Plan
+    template_name = 'plans/home.html'
+    context_object_name = 'completed_plans'
+    ordering = ['-date_created']
+    #paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['completed_plans'] = Plan.objects.filter(plan_state=1)
+        return context
+
 
 class PlanDetailView(LoginRequiredMixin, DetailView):
     model = Plan
