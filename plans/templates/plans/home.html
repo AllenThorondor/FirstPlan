@@ -32,11 +32,13 @@
    {% endif %}
    {% endfor %}
 
+   {% if completed_plans %}
    <h2>
      <font font size=5 >
        <a class="article-title ml-2" href="">已完成的任务：</a>
      </font>
    </h2>
+   {% endif %}
    {% for plan in completed_plans %}
    <article class="media content-section">
      <div class="media-body">
@@ -63,15 +65,6 @@
    {% endfor %}
 
 
-   {% for plan in plans %}
-   {% if plan.plan_state == None %}
-   <h2>
-     <font font size=5 >
-       <a class="article-title mr-2" href="">未归档的任务：</a>
-     </font>
-   </h2>
-   {% endif %}
-   {% endfor %}
    {% if is_paginated %}
      {% if page_obj.has_previous %}
        <a class="btn btn-outline-info mb-4" href="?page=1">首页</a>
