@@ -15,12 +15,11 @@
     </form>
 
   </div>
-  <div class="content-section">
+
     <div class="media-body">
       {% if object.picture.url != '' %}
         <img class="rounded float-left" src="{{ object.picture.url }}" alt="">
       {% endif %}
     </div>
-  </div>
 
 {% endblock content %}
