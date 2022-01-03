@@ -18,9 +18,11 @@ class Post(models.Model):
         return reverse('post-detail', kwargs = {'pk': self.pk})
 
 class PostImage(models.Model):
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
-    image = models.ImageField(default='flash_pics/default.jpg',
-                                upload_to='flash_pics',
-                                blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    story = models.TextField(null=True, verbose_name='故事', help_text='写下那些故事吧')
+    image = models.ImageField(default='default.jpg',
+                                upload_to='post_pics',
+                                blank=True,
+                                help_text='想法图片')
     def __str__(self):
         return self.post.title

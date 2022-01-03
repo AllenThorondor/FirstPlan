@@ -1,14 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
     DeleteView)
-from .models import Post
+from .models import Post, PostImage
+from .forms import PostImageForm
 from taggit.models import Tag
+
 
 
 def moments(request):
@@ -42,8 +46,15 @@ class UserPostListView(LoginRequiredMixin, ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
-class PostDetailView(LoginRequiredMixin, DetailView):
-    model = Post
+
+@login_required
+def post_detail_view(request, pk, *args, **kwargs):
+    post = get_object_or_404(Post, id=pk)
+    photos = PostImage.objects.filter(post=post)
+    return render(request, 'blog/post_detail.html', {
+        'post' : post,
+        'photos' : photos
+    })
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -93,3 +104,14 @@ def tagged(request, pk):
         'posts':posts,
     }
     return render(request, 'blog/home.html', context)
+
+@login_required
+def add_post_image(request, *args, **kwargs):
+    if request.method =='POST':
+        l_form = PostImageForm(request.POST, request.FILES)
+        if l_form.is_valid():
+            l_form.save()
+            messages.success(request, f'your image have beed added,good job!')
+    else:
+        l_form = PostImageForm()
+    return render(request, 'blog/add.html', {'form' : l_form})
