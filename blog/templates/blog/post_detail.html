@@ -6,14 +6,14 @@
           <div class="article-metadata">
             <div style="width:80px; float:left;">
               <figure>
-                <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
+                <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
               </figure>
             </div>
 
             <div class="">
-              <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author}}</a>
-              <small class="text-muted">{{ object.date_posted}}</small>
-              <h2 class="article-title">{{ object.title }}</h2>
+              <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author}}</a>
+              <small class="text-muted">{{ post.date_posted}}</small>
+              <h2 class="article-title">{{ post.title }}</h2>
               <div class="" style="display:flex">
                 {% for tag in post.tags.all %}
                 <a href="{% url 'post-tagged' tag.id %}" class="mr-1 badge badge-info">#{{ tag }}</a>
@@ -22,18 +22,32 @@
             </div>
           </div>
 
-          <p class="article-content" style="float:left;">{{ object.content}}</p>
+          <p class="article-content" style="float:left;">{{ post.content}}</p>
       </div>
       </article>
 
-      {% if object.author == user %}
+      {% if post.author == user %}
       <article class="media content-section">
         <div class="media-body" >
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">修改</a>
-          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">删除</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">修改</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">删除</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-add' post.id %}">add</a>
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'blog-home' %}">返回</a>
         </div >
       </article>
       {% endif %}
+
+      {% for photo in photos %}
+      <article class="media content-section">
+       <div class="">
+          <div class="">
+            <div class="">
+              <a>{{ photo.story }}</a>
+            </div>
+            <img class="img-thumbnail" src="{{ photo.image.url }}" alt="...">
+          </div>
+       </div>
+     </article>
+     {% endfor %}
     <!-- here is the article style ends -->
 {% endblock content %}

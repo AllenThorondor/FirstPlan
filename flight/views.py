@@ -28,7 +28,7 @@ class LaneListView(LoginRequiredMixin, ListView):
 
 @login_required
 def detail_view(request, pk, *args, **kwargs):
-    lane = get_object_or_404(Lane, id = pk)
+    lane = get_object_or_404(Lane, id=pk)
     photos = LaneImage.objects.filter(lane=lane)
     flashs = Flash.objects.filter(lane=lane)
     return render(request, 'flight/lane_detail.html', {
