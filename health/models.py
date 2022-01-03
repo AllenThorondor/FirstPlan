@@ -28,37 +28,39 @@ class Record(models.Model):
 
     def save(self, *args, **kwargs):
         super(Record, self).save(*args, **kwargs)
+        if self.date is not None:
+            pass
+        else:
+            coord = {'date':(450, 150, 670, 206), 'score':(450, 630, 670, 790),
+             'get_bed_time': (5, 1080, 120, 1140), 'get_up_time':(1010, 1080, 1120, 1140),
+             'total_time':(400, 1230, 670, 1290), 'deep_time': (70, 1400, 290, 1470),
+             'light_time': (600, 1400, 850, 1470), 'dream_time': (70, 1570, 290, 1640),
+             'sober_time': (600, 1570, 850, 1640), 'snap_time': (760, 1860, 880, 1920),
+             'breath_score': (840, 2090, 904, 2160)}
 
-        coord = {'date':(450, 150, 670, 206), 'score':(450, 630, 670, 790),
-         'get_bed_time': (5, 1080, 120, 1140), 'get_up_time':(1010, 1080, 1120, 1140),
-         'total_time':(400, 1230, 670, 1290), 'deep_time': (70, 1400, 290, 1470),
-         'light_time': (600, 1400, 850, 1470), 'dream_time': (70, 1570, 290, 1640),
-         'sober_time': (600, 1570, 850, 1640), 'snap_time': (760, 1860, 880, 1920),
-         'breath_score': (840, 2090, 904, 2160)}
+            img = Image.open(self.picture.path).convert('L')
 
-        img = Image.open(self.picture.path).convert('L')
+            cur = connection.cursor()
 
-        cur = connection.cursor()
+            def tess_trans(coord_tuple):
+                drawing_object = ImageDraw.Draw(img)
+                drawing_object.rectangle(coord_tuple, fill=None, outline="red")
+                little_sign = img.crop(coord_tuple)
+                temp_value = pytesseract.image_to_string(little_sign, lang='chi_sim', config='--psm 6 --oem 3 -c tessedic_char_whitelist=0123456789')
+                if temp_value == '':
+                    temp_value = pytesseract.image_to_string(little_sign, config='--psm 6 --oem 3 -c tessedic_char_whitelist=0123456789')
 
-        def tess_trans(coord_tuple):
-            drawing_object = ImageDraw.Draw(img)
-            drawing_object.rectangle(coord_tuple, fill=None, outline="red")
-            little_sign = img.crop(coord_tuple)
-            temp_value = pytesseract.image_to_string(little_sign, lang='chi_sim', config='--psm 6 --oem 3 -c tessedic_char_whitelist=0123456789')
-            if temp_value == '':
-                temp_value = pytesseract.image_to_string(little_sign, config='--psm 6 --oem 3 -c tessedic_char_whitelist=0123456789')
+                return ''.join(temp_value.split())
 
-            return ''.join(temp_value.split())
+            sql_line = 'UPDATE health_record SET '
+            for key, value in coord.items():
+                sql_line +=  f'{key} = "'+ tess_trans(value)+ '",'
 
-        sql_line = 'UPDATE health_record SET '
-        for key, value in coord.items():
-            sql_line +=  f'{key} = "'+ tess_trans(value)+ '",'
+            sql_line = sql_line[:-1] + ' WHERE id = '+ str(self.id)
 
-        sql_line = sql_line[:-1] + ' WHERE id = '+ str(self.id)
+            cur.execute(sql_line)
 
-        cur.execute(sql_line)
-
-        if img.height > 600 or img.width > 600:
-            output_size = (600, 600)
-            img.thumbnail(output_size)
-        img.save(self.picture.path)
+            if img.height > 600 or img.width > 600:
+                output_size = (600, 600)
+                img.thumbnail(output_size)
+            img.save(self.picture.path)

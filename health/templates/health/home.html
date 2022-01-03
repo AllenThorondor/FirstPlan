@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 {% block content %}
   <article class="media content-section">
-    <a class="btn btn-outline-secondary" href="{% url "health-add" %}">新的记录</a>
+    <a class="btn btn-outline-secondary" href="{% url 'health-add' %}">新的记录</a>
   </article>
 
   {% for record in records %}

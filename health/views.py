@@ -24,7 +24,7 @@ class RecordListView(LoginRequiredMixin, ListView):
     model = Record
     template_name = 'health/home.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'records'
-    #ordering = ['-date_posted']
+    ordering = ['-date_posted']
     paginate_by = 10
 
 def add(request, *args, **kwargs):
@@ -47,14 +47,14 @@ class RecordUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
      'light_time', 'dream_time','sober_time', 'snap_time', 'breath_score']
     success_url = '/health'
 
-    """def form_valid(self, form):
+    def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-        """
+
     def test_func(self):
-        """record = self.get_object()
+        record = self.get_object()
         if self.request.user == record.author:
-            return True"""
+            return True
         return True
 
 
@@ -62,7 +62,7 @@ class RecordDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Record
     success_url = '/health'
     def test_func(self):
-        """lane = self.get_object()
+        lane = self.get_object()
         if self.request.user == lane.author:
-            return True"""
+            return True
         return True
