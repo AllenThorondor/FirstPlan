@@ -30,12 +30,14 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
+                  {% if object.author.content == 'liuqian' %}
                   <a class="nav-item nav-link" href="{% url 'blog-home' %}">想法</a>
                   <a class="nav-item nav-link" href="{% url 'blog-about' %}">关于</a>
                   <a class="nav-item nav-link" href="{% url 'plan-home' %}">任务系统</a>
                   <a class="nav-item nav-link" href="{% url 'penny-home' %}">记账功能</a>
                   <a class="nav-item nav-link" href="{% url 'flight-home' %}">航班登机</a>
                   <a class="nav-item nav-link" href="{% url 'health-home' %}">睡眠统计</a>
+                  {% endif %}
                   <div class="navbar-nav dropdown ">
                       <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">图片管理
                           <span class="caret"></span>
@@ -60,7 +62,9 @@
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
                   {% if user.is_authenticated %}
+                  {% if object.author.content == 'liuqian' %}
                   <a class="nav-item nav-link" href="http://42.193.51.210/admin/">管理</a>
+                  {% endif %}
                   <a class="nav-item nav-link" href="{% url 'profile' %}">账户</a>
                   <a class="nav-item nav-link" href="{% url 'logout' %}">登出</a>
                   {% else %}
