@@ -3,7 +3,7 @@
    <article class="media content-section">
      <div class="media-body">
        <div class="article-title">
-         <h2><a class="mr-2" href="#">{{ collection.id }}</a>- <a class="article-title mr-2" href="#">{{collection.collection_name}}</a></h2>
+         <legend>专题序号：{{ collection.id }} - 专题名称：{{collection.collection_name}}</legend>
          <div class="article-metadata">
            {% if collection.author == user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-update' collection.id %}">Update</a>
@@ -14,23 +14,20 @@
          </div>
        </div>
        <div class="">
-         <small class="mr-2">{{ collection.discription }}</small>
-         <small class="text-muted mr-3">{{ collection.note }}</small>
-
+         <small class="text-muted mr-3">专题描述：{{ collection.discription }}</small>
+         <small class="text-muted mr-3">专题点滴：{{ collection.note }}</small>
+         <small class="text-muted mr-3">专题作者：{{ collection.author }}</small>
+         <small class="text-muted mr-3">创建时间：{{ collection.date_created }}</small>
        </div>
 
-       <div class="">
-         <small class="text-muted mr-3">{{ lane.author }}</small>
-       </div>
-       <div class="">
-         <p>{{ collection.date_created }}</p>
-       </div>
        <div class="">
           {% if collection.cover_image.url != '' %}
+          <legend >封面人物</legend>
             <img class="img-thumbnail" src="{{ collection.cover_image.url }}" alt="">
+            <legend>专题图片：</legend>
             {% for photo in photos %}
+              <a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">{{ photo.id }}：{{ photo.story }}</a>
               <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
-              <p>{{ photo.story }}</p>
             {% endfor %}
           {% endif %}
        </div>

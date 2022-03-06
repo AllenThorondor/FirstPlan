@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+   <article class="media content-section">
+     <div class="media-body">
+       <div class="article-title">
+         <h2><a class="mr-2" href="#">{{ info.id }}</a></h2>
+         <div class="article-metadata">
+           {% if info.collection.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-image-update' info.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'collection-image-delete' info.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-detail' info.collection.id%}">Back</a>
+           {% endif %}
+         </div>
+       </div>
+       <div class="">
+         <small class="mr-2">{{ info.story }}</small>
+
+       </div>
+
+       <div class="">
+         <small class="text-muted mr-3">{{ info.collection.author }}</small>
+       </div>
+       <div class="">
+         <p>{{ info.update_time }}</p>
+       </div>
+       <div class="">
+
+            {% for photo in photos %}
+              <!--a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">{{ photo.id }}</a-->
+              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <p>{{ photo.story }}</p>
+            {% endfor %}
+
+       </div>
+     </div>
+   </article>
+
+{% endblock content %}
