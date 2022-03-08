@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView)
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import Lane, Flash, LaneImage
 from .forms import FlashForm
 from django.http import HttpResponse
@@ -25,6 +26,11 @@ class LaneListView(LoginRequiredMixin, ListView):
     context_object_name = 'lanes'
     ordering = ['-takeoff_time']
     paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        #user = get_object_or_404(User, username=self.kwargs.get('username'))
+        #request.user
+        return Lane.objects.filter(author=self.request.user).order_by('-takeoff_time')
 
 @login_required
 def detail_view(request, pk, *args, **kwargs):

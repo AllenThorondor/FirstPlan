@@ -108,6 +108,7 @@ class CollectionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class CollectionImageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = CollectionImage
     success_url = '/moments/home'
+
     def test_func(self):
         collection_image = self.get_object()
         if self.request.user == collection_image.collection.author:

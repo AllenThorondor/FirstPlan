@@ -29,6 +29,11 @@ class PostListView(LoginRequiredMixin, ListView):
     ordering = ['-date_posted']
     paginate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        #user = get_object_or_404(User, username=self.kwargs.get('username'))
+        #request.user
+        return Post.objects.filter(author=self.request.user).order_by('-date_posted')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['common_tags'] = Post.tags.most_common()[:4]
@@ -97,7 +102,9 @@ def about(request):
 def tagged(request, pk):
     tag = get_object_or_404(Tag, id=pk)
     common_tags = Post.tags.most_common()[:4]
-    posts = Post.objects.filter(tags=tag)
+
+    posts = Post.objects.filter(author=request.user, tags=tag)
+    
     context = {
         'tag':tag,
         'common_tags':common_tags,

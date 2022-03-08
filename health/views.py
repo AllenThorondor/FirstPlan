@@ -27,6 +27,11 @@ class RecordListView(LoginRequiredMixin, ListView):
     ordering = ['-date_posted']
     paginate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        #user = get_object_or_404(User, username=self.kwargs.get('username'))
+        #request.user
+        return Record.objects.filter(author=self.request.user).order_by('-date_posted')
+
 def add(request, *args, **kwargs):
     if request.method =='POST':
         l_form = RecordForm(request.POST, request.FILES)

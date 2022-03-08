@@ -24,6 +24,11 @@ class StiverListView(LoginRequiredMixin, ListView):
     ordering = ['-date_created']
     paginate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        #user = get_object_or_404(User, username=self.kwargs.get('username'))
+        #request.user
+        return Stiver.objects.filter(author=self.request.user).order_by('-date_created')
+
 class StiverDetailView(LoginRequiredMixin, DetailView):
     model = Stiver
     """

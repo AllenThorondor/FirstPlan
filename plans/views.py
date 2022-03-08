@@ -41,9 +41,16 @@ class PlanListView(LoginRequiredMixin, ListView):
     context_object_name = 'plans'
     ordering = ['-date_created']
     #paginate_by = 10
+    """
+    def get_queryset(self, *args, **kwargs):
+        #user = get_object_or_404(User, username=self.kwargs.get('username'))
+        #request.user
+        return Plan.objects.filter(author=self.request.user).order_by('-date_created')
+    """
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['plans'] = Plan.objects.filter(plan_state=0)
+        context['plans'] = Plan.objects.filter(plan_state=0, author=self.request.user)
+        #context['plans'] = Plan.objects.filter(author=self.request.user)
         return context
 
 
@@ -55,7 +62,8 @@ class CompletedPlanListView(LoginRequiredMixin, ListView):
     #paginate_by = 10
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['completed_plans'] = Plan.objects.filter(plan_state=1)
+        context['completed_plans'] = Plan.objects.filter(plan_state=1, author=self.request.user)
+        #context['completed_plans'] = Plan.objects.filter(author=self.request.user)
         return context
 
 
