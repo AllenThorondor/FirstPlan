@@ -40,7 +40,6 @@ class PostListView(LoginRequiredMixin, ListView):
         return context
 
 
-
 class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/user_posts.html'  #<app>/<model>_<viewtype>.html
@@ -104,7 +103,7 @@ def tagged(request, pk):
     common_tags = Post.tags.most_common()[:4]
 
     posts = Post.objects.filter(author=request.user, tags=tag)
-    
+
     context = {
         'tag':tag,
         'common_tags':common_tags,

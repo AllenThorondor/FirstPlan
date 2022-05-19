@@ -16,7 +16,8 @@ from taggit.models import Tag
 # Create your views here.
 def home(request):
     context = {
-    'plans'     :   Plan.objects.all()
+    'plans'     :   Plan.objects.all(),
+    'completed_plans_num'  :  Plan.objects.filter(plan_state=1, author=self.request.user).count()
     }
     return render(request, 'plans/home.html', context)
 
@@ -63,7 +64,7 @@ class CompletedPlanListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['completed_plans'] = Plan.objects.filter(plan_state=1, author=self.request.user)
-        #context['completed_plans'] = Plan.objects.filter(author=self.request.user)
+        context['completed_plans_num'] = Plan.objects.filter(plan_state=1, author=self.request.user).count()
         return context
 
 

@@ -33,8 +33,11 @@
                 {% endfor %}
               </div>
             </div>
-            <p class="article-content" style="float:left;">{{ post.content }}</p>
-
+            {% if post.content|length > 1000 %}
+              <p class="article-content" style="float:left;">{{ post.content|truncatechars:100 }}</p>
+            {% else %}
+              <p class="article-content" style="float:left;">{{ post.content }}</p>
+            {% endif %}
 
           </div>
         </article>
