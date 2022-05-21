@@ -19,9 +19,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name = "moments-index"),
-    path('shop/<int:pk>/collection', views.collection_shop, name = "collection-shop"),
-    path('shop/<int:pk>/person', views.person_shop, name = "person-shop"),
-    path('shop/<int:pk>/event', views.event_shop, name = "event-shop"),
+    path('shop/<slug:cato>/<int:pk>', views.shop, name = "shop"),
 
     path('home/', CollectionListView.as_view(), name = "moments-home"),
     path('collection/<int:pk>/', views.collection_detail_view, name = "collection-detail"),

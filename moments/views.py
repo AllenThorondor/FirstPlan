@@ -27,6 +27,27 @@ def index(request):
               }
     return render(request, 'moments/index.html', context)
 
+def shop(request, cato, pk, *args, **kwargs):
+    if cato == "collection":
+        collection = get_object_or_404(Collection, id = pk)
+        photos = CollectionImage.objects.filter(collection=collection)
+
+    elif cato == "person":
+        person = get_object_or_404(Person, id = pk)
+        photos = PersonImage.objects.filter(person=person)
+
+    elif cato == "event":
+        event = get_object_or_404(Event, id = pk)
+        photos = EventImage.objects.filter(event=event)
+
+    else:
+        return render(request, 'blog/about.html',{'title':'About'})
+
+    context = {
+                'photos' : photos
+    }
+    return render(request, 'moments/shop.html', context)
+"""
 def collection_shop(request, pk, *args, **kwargs):
     collection = get_object_or_404(Collection, id = pk)
     photos = CollectionImage.objects.filter(collection=collection)
@@ -53,6 +74,33 @@ def event_shop(request, pk, *args, **kwargs):
                 'photos' : photos
     }
     return render(request, 'moments/shop.html', context)
+
+"""
+
+def single_collection(request, pk, *args, **kwargs):
+    if 'collection' in str(request.path):
+        photo = get_object_or_404(CollectionImage, id = pk)
+
+        context = {
+            'photo' : photo
+        }
+        return render(request, 'moments/product-single.html', context)
+    elif 'person' in str(request.path):
+        photo = get_object_or_404(PersonImage, id = pk)
+        context = {
+            'photo' : photo
+        }
+        return render(request, 'moments/product-single.html', context)
+    elif 'event' in str(request.path):
+        photo = get_object_or_404(EventImage, id = pk)
+        context = {
+            'photo' : photo
+        }
+        return render(request, 'moments/product-single.html', context)
+    else:
+        return render(request, 'blog/about.html',{'title':'About'})
+
+
 
 
 # collection code here.

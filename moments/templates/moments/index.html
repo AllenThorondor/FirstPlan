@@ -10,7 +10,7 @@
         <div class="col-lg-8 text-center">
           <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">{{ collection.date_created }}</p>
           <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">{{ collection.discription }} <br>{{ collection.note }}</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="{% url 'collection-shop' collection.id%}">进入专题</a>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="{% url 'shop' 'collection' collection.id%}">进入专题</a>
         </div>
       </div>
     </div>
@@ -93,7 +93,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="{% url 'person-shop' person.id%}">{{person.person_name}}</a></h4>
+						<h4><a href="{% url 'shop' 'person' person.id%}">{{person.person_name}}</a></h4>
 					</div>
 				</div>
 			</div>
@@ -164,7 +164,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="{% url 'event-shop' event.id%}">{{event.event_name}}</a></h4>
+						<h4><a href="{% url 'shop' 'event', event.id%}">{{event.event_name}}</a></h4>
 					</div>
 				</div>
 			</div>
