@@ -3,6 +3,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from PIL import Image
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill, SmartResize
+
 
 # Create your models here.
 class Collection(models.Model):
@@ -16,6 +19,8 @@ class Collection(models.Model):
                                 upload_to='moments_pics',
                                 blank=True,
                                 help_text='专题封面')
+    thumbnail = ImageSpecField(source='cover_image', processors=[SmartResize(600, 600)], format='PNG')
+
     class Meta:
         verbose_name = '专题图片集'
         verbose_name_plural = verbose_name
@@ -36,12 +41,15 @@ class CollectionImage(models.Model):
                                 blank=True)
     story = models.TextField(null=True, verbose_name='故事', help_text='写下那些故事吧')
     update_time = models.DateTimeField(auto_now_add=True, help_text='更新时间')
+    thumbnail = ImageSpecField(source='image', processors=[SmartResize(600, 600)], format='PNG')
+
 
     def __str__(self):
         return str(self.id)
 
     def get_absolute_url(self):
         return reverse('collection-image-detail', kwargs={'pk':self.pk})
+
 
 
 class Person(models.Model):
@@ -55,6 +63,8 @@ class Person(models.Model):
                                 upload_to='moments_pics',
                                 blank=True,
                                 help_text='专题封面')
+    thumbnail = ImageSpecField(source='cover_image', processors=[SmartResize(600, 600)], format='PNG')
+
     class Meta:
         verbose_name = '人物图片集'
         verbose_name_plural = verbose_name
@@ -75,6 +85,7 @@ class PersonImage(models.Model):
                                 blank=True)
     story = models.TextField(null=True, verbose_name='故事', help_text='写下那些故事吧')
     update_time = models.DateTimeField(auto_now_add=True, help_text='更新时间')
+    thumbnail = ImageSpecField(source='image', processors=[SmartResize(600, 600)], format='PNG')
 
     def __str__(self):
         return str(self.id)
@@ -90,6 +101,8 @@ class Event(models.Model):
                                 upload_to='moments_pics',
                                 blank=True,
                                 help_text='专题封面')
+    thumbnail = ImageSpecField(source='cover_image', processors=[SmartResize(600, 600)], format='PNG')
+
     class Meta:
         verbose_name = '事件图片集'
         verbose_name_plural = verbose_name
@@ -110,6 +123,7 @@ class EventImage(models.Model):
                                 blank=True)
     story = models.TextField(null=True, verbose_name='故事', help_text='写下那些故事吧')
     update_time = models.DateTimeField(auto_now_add=True, help_text='更新时间')
+    thumbnail = ImageSpecField(source='image', processors=[SmartResize(600, 600)], format='PNG')
 
     def __str__(self):
         return str(self.id)
