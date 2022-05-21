@@ -27,7 +27,7 @@
 
             {% for photo in photos %}
               <!--a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">{{ photo.id }}</a-->
-              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
               <p>{{ photo.story }}</p>
             {% endfor %}
 

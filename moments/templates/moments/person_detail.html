@@ -27,9 +27,9 @@
        </div>
        <div class="">
           {% if person.cover_image.url != '' %}
-            <img class="img-thumbnail" src="{{ person.cover_image.url }}" alt="">
+            <img class="img-thumbnail" src="{{ person.thumbnail.url }}" alt="">
             {% for photo in photos %}
-              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
               <p>{{ photo.story }}</p>
             {% endfor %}
           {% endif %}

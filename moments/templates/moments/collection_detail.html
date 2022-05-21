@@ -23,11 +23,11 @@
        <div class="">
           {% if collection.cover_image.url != '' %}
           <legend >封面人物</legend>
-            <img class="img-thumbnail" src="{{ collection.cover_image.url }}" alt="">
+            <img class="img-thumbnail" src="{{ collection.thumbnail.url }}" alt="">
             <legend>专题图片：</legend>
             {% for photo in photos %}
               <a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">{{ photo.id }}：{{ photo.story }}</a>
-              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
             {% endfor %}
           {% endif %}
        </div>

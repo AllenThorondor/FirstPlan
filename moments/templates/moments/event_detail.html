@@ -27,9 +27,9 @@
        </div>
        <div class="">
           {% if event.cover_image.url != '' %}
-            <img class="img-thumbnail" src="{{ event.cover_image.url }}" alt="">
+            <img class="img-thumbnail" src="{{ event.thumbnail.url }}" alt="">
             {% for photo in photos %}
-              <img class="img-thumbnail" src="{{ photo.image.url }}" alt="">
+              <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
               <p>{{ photo.story }}</p>
             {% endfor %}
           {% endif %}
