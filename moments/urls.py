@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name = "moments-index"),
     path('shop/<slug:cato>/<int:pk>', views.shop, name = "shop"),
+    path('shop/<slug:cato>/<int:pk>/<int:id>', views.single, name = "single"),
 
     path('home/', CollectionListView.as_view(), name = "moments-home"),
     path('collection/<int:pk>/', views.collection_detail_view, name = "collection-detail"),

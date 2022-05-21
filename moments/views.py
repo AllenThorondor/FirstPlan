@@ -44,62 +44,31 @@ def shop(request, cato, pk, *args, **kwargs):
         return render(request, 'blog/about.html',{'title':'About'})
 
     context = {
-                'photos' : photos
-    }
-    return render(request, 'moments/shop.html', context)
-"""
-def collection_shop(request, pk, *args, **kwargs):
-    collection = get_object_or_404(Collection, id = pk)
-    photos = CollectionImage.objects.filter(collection=collection)
-
-    context = {
-                'photos' : photos
+                'photos' : photos,
+                'cato' : cato,
+                'pk' : pk
     }
     return render(request, 'moments/shop.html', context)
 
-def person_shop(request, pk, *args, **kwargs):
-    person = get_object_or_404(Person, id = pk)
-    photos = PersonImage.objects.filter(person=person)
-
-    context = {
-                'photos' : photos
-    }
-    return render(request, 'moments/shop.html', context)
-
-def event_shop(request, pk, *args, **kwargs):
-    event = get_object_or_404(Event, id = pk)
-    photos = EventImage.objects.filter(event=event)
-
-    context = {
-                'photos' : photos
-    }
-    return render(request, 'moments/shop.html', context)
-
-"""
-
-def single_collection(request, pk, *args, **kwargs):
+def single(request, cato, pk, id, *args, **kwargs):
     if 'collection' in str(request.path):
-        photo = get_object_or_404(CollectionImage, id = pk)
+        photo = get_object_or_404(CollectionImage, id = id)
 
-        context = {
-            'photo' : photo
-        }
-        return render(request, 'moments/product-single.html', context)
     elif 'person' in str(request.path):
-        photo = get_object_or_404(PersonImage, id = pk)
-        context = {
-            'photo' : photo
-        }
-        return render(request, 'moments/product-single.html', context)
+        photo = get_object_or_404(PersonImage, id = id)
+
     elif 'event' in str(request.path):
-        photo = get_object_or_404(EventImage, id = pk)
-        context = {
-            'photo' : photo
-        }
-        return render(request, 'moments/product-single.html', context)
+        photo = get_object_or_404(EventImage, id = id)
+
     else:
         return render(request, 'blog/about.html',{'title':'About'})
 
+    context = {
+        'photo' :   photo,
+        'cato'  :   cato,
+        'pk'    :   pk
+    }
+    return render(request, 'moments/product-single.html', context)
 
 
 
