@@ -17,7 +17,8 @@ from taggit.models import Tag
 def home(request):
     context = {
     'plans'     :   Plan.objects.all(),
-    'completed_plans_num'  :  Plan.objects.filter(plan_state=1, author=self.request.user).count()
+    'completed_plans_num'  :  Plan.objects.filter(plan_state=1, author=self.request.user).count(),
+    'plans_num' :   Plan.objects.filter(plan_state=0, author=self.request.user).count()
     }
     return render(request, 'plans/home.html', context)
 

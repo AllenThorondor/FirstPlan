@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 {% block content %}
   <article class="media content-section">
-    <a class="btn btn-outline-secondary" href="{% url 'plan-create' %}">新的任务</a>
+    <a class="btn btn-outline-secondary" href="{% url 'plan-create' %}">新的任务{{ plans_num }}</a>
     <a class="btn btn-outline-secondary ml-2" href="{% url 'completed-plan-home' %}">完成任务{{ completed_plans_num }}</a>
   </article>
 
