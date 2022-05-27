@@ -42,7 +42,10 @@ class StiverFocusView(LoginRequiredMixin, ListView):
         #request.user
         return Stiver.objects.filter(author=self.request.user).order_by('-date_created')
 
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['field_name'] = Stiver._meta.get_fields()
+        return context
 
 class StiverDetailView(LoginRequiredMixin, DetailView):
     model = Stiver

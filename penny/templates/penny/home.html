@@ -2,6 +2,7 @@
 {% block content %}
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'stiver-create' %}">新的账单</a>
+    <a class="btn btn-outline-secondary ml-2" href="{% url 'stiver-list' %}">新界面入口</a>
   </article>
   {% for stiver in stivers %}
    <article class="media content-section">
