@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.views.generic import (
     ListView,
     DetailView,
@@ -12,14 +13,6 @@ from django.views.generic import (
 from .models import Post, PostImage
 from .forms import PostImageForm
 from taggit.models import Tag
-
-
-
-def moments(request):
-    context = {
-        'posts' : Post.objects.all()
-    }
-    return render(request, 'blog/moments.html', context)
 
 
 class PostListView(LoginRequiredMixin, ListView):
@@ -37,6 +30,7 @@ class PostListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['common_tags'] = Post.tags.most_common()[:4]
+
         return context
 
 
@@ -55,9 +49,12 @@ class UserPostListView(LoginRequiredMixin, ListView):
 def post_detail_view(request, pk, *args, **kwargs):
     post = get_object_or_404(Post, id=pk)
     photos = PostImage.objects.filter(post=post)
+    page = request.GET.get('page')
+
     return render(request, 'blog/post_detail.html', {
         'post' : post,
-        'photos' : photos
+        'photos' : photos,
+        'page' : page
     })
 
 
@@ -113,11 +110,12 @@ def tagged(request, pk):
 
 @login_required
 def add_post_image(request, *args, **kwargs):
-    if request.method =='POST':
+    if request.method == 'POST':
         l_form = PostImageForm(request.POST, request.FILES)
+
         if l_form.is_valid():
             l_form.save()
-            messages.success(request, f'your image have beed added,good job!')
+            messages.success(request, f'your image have beed added, good job!')
     else:
         l_form = PostImageForm()
     return render(request, 'blog/add.html', {'form' : l_form})

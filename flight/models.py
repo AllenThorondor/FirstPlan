@@ -21,7 +21,7 @@ class Lane(models.Model):
                                 help_text='照片记录')
 
     def __str__(self):
-        return str(self.id)
+        return str(self.flight_date) + "@" + str(self.provenance) + " to " + str(self.destination)
 
     def get_absolute_url(self):
         return reverse('lane-detail', kwargs={'pk':self.pk})
