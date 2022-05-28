@@ -8,4 +8,4 @@ class FlashForm(forms.ModelForm):
         model = Flash
         fields = ['lane', 'story', 'picture' ]
 
-    lane = forms.ChoiceField(choices=enumerate(Lane.objects.order_by('-takeoff_time')))
+    lane = forms.ModelChoiceField(queryset=Lane.objects.order_by('-takeoff_time'))

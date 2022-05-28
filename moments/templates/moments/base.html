@@ -94,8 +94,8 @@ FACEBOOK: https://www.facebook.com/themefisher
 								<span>暂未开放</span>
 							</div>
 							<ul class="text-center cart-buttons">
-								<li><a href="cart.html" class="btn btn-small">查看资源</a></li>
-								<li><a href="checkout.html" class="btn btn-small btn-solid-border">管理资源</a></li>
+								<li><a href="" class="btn btn-small">查看资源</a></li>
+								<li><a href="" class="btn btn-small btn-solid-border">管理资源</a></li>
 							</ul>
 						</div>
 
@@ -168,11 +168,11 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<ul>
 										<li class="dropdown-header">图片分类</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="">专题图片</a></li>
-										<li><a href="">人物图片</a></li>
-										<li><a href="">事件图片</a></li>
-										<li><a href="pricing.html">流行图片（待完善）</a></li>
-										<li><a href="confirmation.html">其他（待完善）</a></li>
+										<li><a href="{% url 'moments-index' %}">专题图片</a></li>
+										<li><a href="{% url 'moments-index' %}">人物图片</a></li>
+										<li><a href="{% url 'moments-index' %}">事件图片</a></li>
+										<li><a href="">流行图片（待完善）</a></li>
+										<li><a href="">其他（待完善）</a></li>
 
 									</ul>
 								</div>
@@ -180,10 +180,10 @@ FACEBOOK: https://www.facebook.com/themefisher
 								<!-- Layout -->
 								<div class="col-lg-6 col-md-6 mb-sm-3">
 									<ul>
-										<li class="dropdown-header">Layout</li>
+										<li class="dropdown-header">高级功能</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="product-single.html">Product Details</a></li>
-										<li><a href="shop-sidebar.html">Shop With Sidebar</a></li>
+										<li><a href="#">查找与搜索</a></li>
+										<li><a href="#">统计图片人物</a></li>
 
 									</ul>
 								</div>
@@ -291,19 +291,19 @@ FACEBOOK: https://www.facebook.com/themefisher
 			<div class="col-md-12">
 				<ul class="footer-menu text-uppercase">
 					<li>
-						<a href="contact.html">CONTACT</a>
+						<a href="{% url 'blog-about' %}">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="{% url 'blog-about' %}">ABOUT</a>
 					</li>
 					<li>
-						<a href="pricing.html">Pricing</a>
+						<a href="{% url 'blog-about' %}">COPERATE</a>
 					</li>
 					<li>
-						<a href="contact.html">PRIVACY POLICY</a>
+						<a href="{% url 'blog-about' %}">PRIVACY POLICY</a>
 					</li>
 				</ul>
-				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
+				<p class="copyright-text">Copyright &copy;2022, Designed &amp; Developed by <a href="{% url 'blog-about' %}">FirstPlan</a></p>
 			</div>
 		</div>
 	</div>

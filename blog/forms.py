@@ -8,4 +8,4 @@ class PostImageForm(forms.ModelForm):
         model = PostImage
         fields = ['post', 'story', 'image' ]
 
-    post = forms.ChoiceField(choices=enumerate(Post.objects.order_by('-date_posted')))
+    post = forms.ModelChoiceField(queryset=Post.objects.order_by('-date_posted'))

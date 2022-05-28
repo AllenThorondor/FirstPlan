@@ -32,7 +32,7 @@
 					<a href="#!">
 						<img src="images/shop/category/category-1.jpg" alt="" />
 						<div class="content">
-							<h3>Clothes Sales</h3>
+							<h3>Clothes {% static 'assets/images/avatar/3.jpg' %}s</h3>
 							<p>Shop New Season Clothing</p>
 						</div>
 					</a>
@@ -74,7 +74,7 @@
 			<div class="col-md-4">
 				<div class="product-item">
 					<div class="product-thumb">
-						<span class="bage">Sale</span>
+						<span class="bage">{{ person.id }}</span>
 						<img class="img-responsive" src="{{person.thumbnail.url}}" alt="product-img" />
 						<div class="preview-meta">
 							<ul>
@@ -145,7 +145,7 @@
 			<div class="col-md-4">
 				<div class="product-item">
 					<div class="product-thumb">
-						<span class="bage">Sale</span>
+						<span class="bage">{{ event.id }}</span>
 						<img class="img-responsive" src="{{event.thumbnail.url}}" alt="product-img" />
 						<div class="preview-meta">
 							<ul>

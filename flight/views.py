@@ -79,12 +79,13 @@ class LaneUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-def add(request, *args, **kwargs):
+def add(request, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = FlashForm(request.POST, request.FILES)
         if l_form.is_valid():
             l_form.save()
             messages.success(request, f'your flash have beed added,good job!')
+            return redirect('lane-detail', pk=pk)
     else:
         l_form = FlashForm()
     return render(request, 'flight/add.html', {'form' : l_form})

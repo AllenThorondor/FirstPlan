@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -109,13 +109,14 @@ def tagged(request, pk):
     return render(request, 'blog/home.html', context)
 
 @login_required
-def add_post_image(request, *args, **kwargs):
+def add_post_image(request, pk, *args, **kwargs):
     if request.method == 'POST':
         l_form = PostImageForm(request.POST, request.FILES)
 
         if l_form.is_valid():
             l_form.save()
             messages.success(request, f'your image have beed added, good job!')
+            return redirect('post-detail', pk=pk)
     else:
         l_form = PostImageForm()
     return render(request, 'blog/add.html', {'form' : l_form})
