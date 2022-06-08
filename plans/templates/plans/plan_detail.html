@@ -16,14 +16,14 @@
        </div>
        <div class="">
          {% if object.author == user %}
+         {% if object.plan_state == 0 %}
+         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-check' object.id %}">Check</a>
+         {% else %}
+         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-uncheck' object.id %}">Uncheck</a>
+         {% endif %}
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-update' object.id %}">Update</a>
           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'plan-delete' object.id %}">Delete</a>
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-home' %}">Back</a>
-          {% if object.plan_state == 0 %}
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-check' object.id %}">Check</a>
-          {% else %}
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan-uncheck' object.id %}">Uncheck</a>
-          {% endif %}
          {% endif %}
        </div>
      </div>
