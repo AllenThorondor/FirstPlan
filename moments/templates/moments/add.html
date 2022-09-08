@@ -8,10 +8,22 @@
         <legend class="border-bottom mb-4">专题信息</legend>
         {{ form|crispy }}
       </fieldset>
+      {% if cato == 'collection' %}
       <div class="form-group">
         <button class="btn btn-outline-info" type="submit">发表</button>
-        <a class="btn btn-outline-secondary" href="{% url 'moments-home' %}">取消</a>
+        <a class="btn btn-outline-secondary" href="{% url 'collection-detail' pk %}">取消</a>
       </div>
+      {% elif cato == 'person' %}
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">发表</button>
+        <a class="btn btn-outline-secondary" href="{% url 'person-detail' pk %}">取消</a>
+      </div>
+      {% elif cato == 'event' %}
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">发表</button>
+        <a class="btn btn-outline-secondary" href="{% url 'event-detail' pk %}">取消</a>
+      </div>
+      {% endif %}
     </form>
   </div>
 

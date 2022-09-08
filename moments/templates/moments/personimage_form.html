@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="content-section">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">图片信息</legend>
+        <img class="img-thumbnail" src="{{ object.image.url }}" alt="">
+        {{ form|crispy }}
+      </fieldset>
+
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">发表</button>
+        {% if object.id %}
+        <a class="btn btn-outline-secondary" href="{% url 'person-image-detail' object.id %}">取消</a>
+        {% else %}
+        <a class="btn btn-outline-secondary" href="{% url 'moments-home' %}">取消</a>
+        {% endif %}
+      </div>
+    </form>
+
+  </div>
+{% endblock content %}

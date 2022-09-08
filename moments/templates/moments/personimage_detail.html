@@ -6,12 +6,12 @@
          <h2>图片序号：<a class="mr-2" href="#">{{ info.id }}</a>
          </h2>
          <div class="article-metadata">
-           {% if info.collection.author == user %}
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-image-update' info.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'collection-image-delete' info.id %}">Delete</a>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-detail' info.collection.id %}">Back</a>
+           {% if info.person.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-image-update' info.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'person-image-delete' info.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-detail' info.person.id %}">Back</a>
            {% else %}
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'collection-detail' info.collection.id %}">
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'person-detail' info.person.id %}">
               权限不足，无法对该专题进行修改，请联系管理员！
             </a>
            {% endif %}
@@ -19,14 +19,14 @@
        </div>
 
        <div class="">
-         <a class="text-muted mr-3">专题作者：{{ info.collection.author }}</a>
+         <a class="text-muted mr-3">专题作者：{{ info.person.author }}</a>
          <a class="text-muted mr-3">更新时间：{{ info.update_time }}</a>
        </div>
 
        <div class="">
 
             {% for photo in photos %}
-              <!--a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">{{ photo.id }}</a-->
+              <!--a class="mr-2" href="{% url 'person-image-detail' photo.id %}">{{ photo.id }}</a-->
               <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
               <p>{{ photo.story }}</p>
             {% endfor %}

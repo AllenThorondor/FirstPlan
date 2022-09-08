@@ -1,11 +1,8 @@
 {% extends 'blog/base.html' %}
 {% block content %}
   <article class="media content-section">
-    <!--a class="btn btn-outline-secondary" href="{% url 'collection-create'%}">新的专题</a>
-    <a class="btn btn-outline-secondary ml-2" href="{% url 'person-create'%}">新的人物</a-->
     <a class="btn btn-outline-secondary ml-2" href="{% url 'event-create'%}">新的事件</a>
     <a class="btn btn-outline-secondary ml-2" href="{% url 'moments-index'%}">图片鉴赏</a>
-
   </article>
 
   {% for event in events %}
@@ -15,11 +12,11 @@
          <h2>
            <font font size='5'>
            <a class="article-title mr-2" href="{% url 'event-detail' event.id %}">{{ event.event_name }}</a>
-           <a class="article-title" href="">{{ event.event_num}}</a>
            </font>
 
            <font font size='2'>
-             <small class="text-muted ml-2">{{ event.date_created }}</small>
+             <small class="article-title">created by</small>
+             <small class="text-muted ml-2">{{ event.author }} @ {{ event.date_created }}</small>
            </font>
          </h2>
          <div class="article-metadata">
@@ -28,9 +25,8 @@
          <img class="img-thumbnail" src="{{ event.thumbnail.url }}" alt="">
        </div>
        <div class="">
-         <small class="mr-2">{{ event.discription }}</small>
-         <small class="text-muted mr-3">{{ event.note }}</small>
-         <small class="text-muted mr-3">{{ event.author }}</small>
+         <small class="mr-2">{{ event.note }}</small>
+         <!--small class="text-muted mr-3">{{ event.note }}</small-->
        </div>
      </div>
    </article>

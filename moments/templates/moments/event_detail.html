@@ -3,37 +3,47 @@
    <article class="media content-section">
      <div class="media-body">
        <div class="article-title">
+         <!--保留原有格式作为对比，目的是后期利用起这两个格式，作为搜索或者筛选之用。-->
          <h2><a class="mr-2" href="#">{{ event.id }}</a>- <a class="article-title mr-2" href="#">{{event.event_name}}</a></h2>
          <div class="article-metadata">
            {% if event.author == user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-update' event.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'event-delete' event.id %}">Delete</a>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-add' event.id %}">Add</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-add' 'event' event.id %}">Add</a>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-home' %}">Back</a>
+           {% else %}
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'moments-home' %}">
+              权限不足，无法对该专题进行修改，请联系管理员！
+            </a>
            {% endif %}
          </div>
        </div>
        <div class="">
-         <small class="mr-2">{{ event.discription }}</small>
-         <small class="text-muted mr-3">{{ event.note }}</small>
-
+         <small class="text-muted mr-3">专题描述：{{ event.discription }}</small>
+         <small class="text-muted mr-3">专题点滴：{{ event.note }}</small>
+         <small class="text-muted mr-3">专题作者：{{ event.author }}</small>
+         <small class="text-muted mr-3">创建时间：{{ event.date_created }}</small>
        </div>
 
-       <div class="">
-         <small class="text-muted mr-3">{{ event.author }}</small>
-       </div>
-       <div class="">
-         <p>{{ event.date_created }}</p>
-       </div>
-       <div class="">
-          {% if event.cover_image.url != '' %}
+       {% if event.cover_image.url != '' %}
+       <div class="article-metadata">
+          <legend >封面事件</legend>
             <img class="img-thumbnail" src="{{ event.thumbnail.url }}" alt="">
+            <div class="">
+              <p class="mr-2" >图片描述：{{ event.note }}</p>
+            </div>
+
+          <legend>事件图片</legend>
             {% for photo in photos %}
               <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
-              <p>{{ photo.story }}</p>
+              <div class="">
+                <a class="mr-2" href="{% url 'event-image-detail' photo.id %}">序号:{{ photo.id }}</a>
+                <a class="mr-2" href="{% url 'event-image-detail' photo.id %}">图片描述：{{ photo.story }}</a>
+              </div>
             {% endfor %}
-          {% endif %}
        </div>
+       {% endif %}
+
      </div>
    </article>
 

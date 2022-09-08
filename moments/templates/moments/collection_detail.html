@@ -8,8 +8,12 @@
            {% if collection.author == user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-update' collection.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'collection-delete' collection.id %}">Delete</a>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-add' collection.id %}">Add</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'collection-add' 'collection' collection.id %}">Add</a>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'moments-home' %}">Back</a>
+           {% else %}
+           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'moments-home' %}">
+             权限不足，无法对该专题进行修改，请联系管理员！
+           </a>
            {% endif %}
          </div>
        </div>
@@ -20,17 +24,24 @@
          <small class="text-muted mr-3">创建时间：{{ collection.date_created }}</small>
        </div>
 
-       <div class="">
-          {% if collection.cover_image.url != '' %}
+       {% if collection.cover_image.url != '' %}
+       <div class="article-metadata">
           <legend >封面人物</legend>
             <img class="img-thumbnail" src="{{ collection.thumbnail.url }}" alt="">
-            <legend>专题图片：</legend>
+            <div class="">
+              <p class="mr-2" >图片描述：{{ collection.note }}</p>
+            </div>
+
+          <legend>专题图片</legend>
             {% for photo in photos %}
-              <a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">{{ photo.id }}：{{ photo.story }}</a>
               <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
+              <div class="">
+                <a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">序号:{{ photo.id }}</a>
+                <a class="mr-2" href="{% url 'collection-image-detail' photo.id %}">图片描述：{{ photo.story }}</a>
+              </div>
             {% endfor %}
-          {% endif %}
        </div>
+       {% endif %}
      </div>
    </article>
 

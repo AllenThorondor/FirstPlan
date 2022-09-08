@@ -3,37 +3,45 @@
    <article class="media content-section">
      <div class="media-body">
        <div class="article-title">
-         <h2><a class="mr-2" href="#">{{ person.id }}</a>- <a class="article-title mr-2" href="#">{{ person.person_name}}</a></h2>
+         <legend>人物序号：{{ person.id }} - 专题名称：{{person.person_name}}</legend>
          <div class="article-metadata">
            {% if person.author == user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-update' person.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'person-delete' person.id %}">Delete</a>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-add' person.id %}">Add</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-add' 'person' person.id %}">Add</a>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'person-home' %}">Back</a>
+           {% else %}
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'moments-home' %}">
+              权限不足，无法对该专题进行修改，请联系管理员！
+            </a>
            {% endif %}
          </div>
        </div>
        <div class="">
-         <small class="mr-2">{{ person.discription }}</small>
-         <small class="text-muted mr-3">{{ person.note }}</small>
-
+         <small class="text-muted mr-3">专题描述：{{ person.discription }}</small>
+         <small class="text-muted mr-3">专题点滴：{{ person.note }}</small>
+         <small class="text-muted mr-3">专题作者：{{ person.author }}</small>
+         <small class="text-muted mr-3">创建时间：{{ person.date_created }}</small>
        </div>
 
-       <div class="">
-         <small class="text-muted mr-3">{{ lane.author }}</small>
-       </div>
-       <div class="">
-         <p>{{ person.date_created }}</p>
-       </div>
-       <div class="">
-          {% if person.cover_image.url != '' %}
+       {% if person.cover_image.url != '' %}
+       <div class="article-metadata">
+          <legend >封面人物</legend>
             <img class="img-thumbnail" src="{{ person.thumbnail.url }}" alt="">
+            <div class="">
+              <p class="mr-2" >图片描述：{{ person.note }}</p>
+            </div>
+
+          <legend>人物图片</legend>
             {% for photo in photos %}
               <img class="img-thumbnail" src="{{ photo.thumbnail.url }}" alt="">
-              <p>{{ photo.story }}</p>
+              <div class="">
+                <a class="mr-2" href="{% url 'person-image-detail' photo.id %}">序号:{{ photo.id }}</a>
+                <a class="mr-2" href="{% url 'person-image-detail' photo.id %}">图片描述：{{ photo.story }}</a>
+              </div>
             {% endfor %}
-          {% endif %}
        </div>
+       {% endif %}
      </div>
    </article>
 

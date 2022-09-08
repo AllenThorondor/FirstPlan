@@ -9,11 +9,15 @@ from imagekit.processors import ResizeToFill, SmartResize
 
 # Create your models here.
 class Collection(models.Model):
-    collection_name = models.CharField(max_length=20, verbose_name='专题名称', help_text='例如：时空漫步者')
-    collection_num = models.CharField(max_length=10, verbose_name='专题编号', help_text='例如：20211121-1')
+    collection_name = models.CharField(max_length=20, verbose_name='专题名称',
+                        help_text='例如：时空漫步者，15字以内')
+    collection_num = models.CharField(max_length=10, verbose_name='专题编号',
+                        help_text='例如：20211121-1')
     date_created = models.DateField(auto_now_add=True, verbose_name='创建日期')
-    discription = models.CharField(max_length=220, verbose_name='专题描述', help_text='例如：')
-    note = models.TextField(max_length=1000, verbose_name='记录', help_text='按照书本一点不差的即兴发挥吧')
+    discription = models.CharField(max_length=220, verbose_name='专题描述',
+                        help_text='例如：浔阳江头夜送客，枫叶荻花秋瑟瑟...')
+    note = models.TextField(max_length=1000, verbose_name='记录',
+                        help_text='按照书本一点不差的即兴发挥吧')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     cover_image = models.ImageField(
                                 upload_to='moments_pics',
@@ -53,11 +57,15 @@ class CollectionImage(models.Model):
 
 
 class Person(models.Model):
-    person_name = models.CharField(max_length=20, verbose_name='人物名称', help_text='例如：本人张楚岚')
-    person_num = models.CharField(max_length=10, verbose_name='专题编号', help_text='例如：20211121-1')
+    person_name = models.CharField(max_length=20, verbose_name='人物名称',
+                            help_text='例如：本人张楚岚')
+    person_num = models.CharField(max_length=10, verbose_name='专题编号',
+                            help_text='例如：20211121-1')
     date_created = models.DateField(auto_now_add=True, verbose_name='创建日期')
-    discription = models.CharField(max_length=220, verbose_name='专题描述', help_text='例如：')
-    note = models.TextField(max_length=1000, verbose_name='记录', help_text='按照书本一点不差的即兴发挥吧')
+    discription = models.CharField(max_length=220, verbose_name='专题描述',
+                            help_text='例如：一位粉妆玉砌，傲骨英风的翩翩少年')
+    note = models.TextField(max_length=1000, verbose_name='记录',
+                            help_text='按照书本一点不差的即兴发挥吧')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     cover_image = models.ImageField(
                                 upload_to='moments_pics',
@@ -91,11 +99,15 @@ class PersonImage(models.Model):
         return str(self.id)
 
 class Event(models.Model):
-    event_name = models.CharField(max_length=20, verbose_name='事件名称', help_text='例如：新宿事件')
-    event_num = models.CharField(max_length=10, verbose_name='专题编号', help_text='例如：20211121-1')
+    event_name = models.CharField(max_length=20, verbose_name='事件名称',
+                            help_text='例如：新宿事件，15字以内')
+    event_num = models.CharField(max_length=10, verbose_name='专题编号',
+                            help_text='例如：20211121-1')
     date_created = models.DateField(auto_now_add=True, verbose_name='创建日期')
-    discription = models.CharField(max_length=220, verbose_name='专题描述', help_text='例如：')
-    note = models.TextField(max_length=1000, verbose_name='记录', help_text='按照书本一点不差的即兴发挥吧')
+    discription = models.CharField(max_length=220, verbose_name='专题描述',
+                            help_text='例如：永和九年，岁在癸丑，暮春之初...')
+    note = models.TextField(max_length=1000, verbose_name='记录',
+                            help_text='按照书本一点不差的即兴发挥吧')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     cover_image = models.ImageField(
                                 upload_to='moments_pics',

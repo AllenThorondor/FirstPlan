@@ -1,11 +1,8 @@
 {% extends 'blog/base.html' %}
 {% block content %}
   <article class="media content-section">
-    <!--a class="btn btn-outline-secondary" href="{% url 'collection-create'%}">新的专题</a-->
     <a class="btn btn-outline-secondary ml-2" href="{% url 'person-create'%}">新的人物</a>
-    <!--a class="btn btn-outline-secondary ml-2" href="{% url 'event-create'%}">新的事件</a-->
     <a class="btn btn-outline-secondary ml-2" href="{% url 'moments-index'%}">图片鉴赏</a>
-
   </article>
 
   {% for person in persons %}
@@ -15,11 +12,12 @@
          <h2>
            <font font size='5'>
            <a class="article-title mr-2" href="{% url 'person-detail' person.id %}">{{ person.person_name }}</a>
-           <a class="article-title" href="">{{ person.person_num}}</a>
+           <!--a class="article-title" href="">{{ person.person_num}}</a-->
            </font>
 
            <font font size='2'>
-             <small class="text-muted ml-2">{{ person.date_created }}</small>
+             <small class="article-title">created by</small>
+             <small class="text-muted ml-2">{{ person.author }} @ {{ person.date_created }}</small>
            </font>
          </h2>
          <div class="article-metadata">
@@ -29,8 +27,7 @@
        </div>
        <div class="">
          <small class="mr-2">{{ person.discription }}</small>
-         <small class="text-muted mr-3">{{ person.note }}</small>
-         <small class="text-muted mr-3">{{ person.author }}</small>
+         <!--small class="text-muted mr-3">{{ person.note }}</small-->
        </div>
      </div>
    </article>
