@@ -153,6 +153,7 @@ def collection_image_detail_view(request, pk, *args, **kwargs):
 def add_collection(request, cato, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = CollectionImageForm(request.POST, request.FILES)
+        l_form.fields['collection'].queryset = Collection.objects.filter(id=pk)
         if l_form.is_valid():
             l_form.save()
             messages.success(request, f'your image have beed added, good job!')
@@ -178,7 +179,7 @@ class PersonListView(LoginRequiredMixin, ListView):
 
 class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Person
-    success_url = '/moments/home'
+    success_url = '/moments/person'
     def test_func(self):
         person = self.get_object()
         if self.request.user == person.author:
@@ -187,7 +188,7 @@ class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class PersonImageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = PersonImage
-    success_url = '/moments/home'
+    success_url = '/moments/person'
 
     def test_func(self):
         person_image = self.get_object()
@@ -242,6 +243,7 @@ def person_image_detail_view(request, pk, *args, **kwargs):
 def add_person(request, cato, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = PersonImageForm(request.POST, request.FILES)
+        l_form.fields['person'].queryset = Person.objects.filter(id=pk)
         if l_form.is_valid():
             l_form.save()
             messages.success(request, f'your image have beed added, good job!')
@@ -286,7 +288,7 @@ class EventImageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Event
-    success_url = '/moments/home'
+    success_url = '/moments/event'
     def test_func(self):
         event = self.get_object()
         if self.request.user == event.author:
@@ -295,11 +297,11 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class EventImageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = EventImage
-    success_url = '/moments/home'
+    success_url = '/moments/event'
 
     def test_func(self):
         event_image = self.get_object()
-        if self.request.user == event_image.person.author:
+        if self.request.user == event_image.event.author:
             return True
         return False
 
@@ -331,6 +333,7 @@ def event_image_detail_view(request, pk, *args, **kwargs):
 def add_event(request, cato, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = EventImageForm(request.POST, request.FILES)
+        l_form.fields['event'].queryset = Event.objects.filter(id=pk)
         if l_form.is_valid():
             l_form.save()
             messages.success(request, f'your image have beed added, good job!')

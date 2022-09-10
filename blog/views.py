@@ -110,8 +110,10 @@ def tagged(request, pk):
 
 @login_required
 def add_post_image(request, pk, *args, **kwargs):
+
     if request.method == 'POST':
         l_form = PostImageForm(request.POST, request.FILES)
+        l_form.fields['post'].queryset = Post.objects.filter(id=pk)
 
         if l_form.is_valid():
             l_form.save()
@@ -119,4 +121,4 @@ def add_post_image(request, pk, *args, **kwargs):
             return redirect('post-detail', pk=pk)
     else:
         l_form = PostImageForm()
-    return render(request, 'blog/add.html', {'form' : l_form})
+    return render(request, 'blog/add.html', {'form' : l_form, 'pk' : pk})
