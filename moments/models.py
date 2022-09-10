@@ -130,7 +130,7 @@ class PersonImage(models.Model):
         return reverse('person-image-detail', kwargs={'pk':self.pk})
 
     def save(self, *args, **kwargs):
-        super(CollectionImage, self).save(*args, **kwargs)
+        super(PersonImage, self).save(*args, **kwargs)
         img = Image.open(self.image.path)
 
         #相机或手机拍摄图片需要根据exif旋转角度
@@ -205,7 +205,7 @@ class EventImage(models.Model):
         return reverse('event-image-detail', kwargs={'pk':self.pk})
 
     def save(self, *args, **kwargs):
-        super(CollectionImage, self).save(*args, **kwargs)
+        super(EventImage, self).save(*args, **kwargs)
         img = Image.open(self.image.path)
 
         #相机或手机拍摄图片需要根据exif旋转角度
