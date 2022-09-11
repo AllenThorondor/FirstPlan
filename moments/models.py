@@ -40,7 +40,7 @@ class Collection(models.Model):
 
     def save(self, *args, **kwargs):
         super(Collection, self).save(*args, **kwargs)
-        img = Image.open(self.image.path)
+        img = Image.open(self.cover_image.path)
 
         #相机或手机拍摄图片需要根据exif旋转角度
         try:
@@ -66,7 +66,7 @@ class Collection(models.Model):
         except:
           pass
 
-        img.save(self.image.path, quality=100)
+        img.save(self.cover_image.path, quality=100)
 
 class CollectionImage(models.Model):
     collection = models.ForeignKey(Collection, default=None, on_delete=models.CASCADE)
@@ -146,7 +146,7 @@ class Person(models.Model):
 
     def save(self, *args, **kwargs):
         super(Person, self).save(*args, **kwargs)
-        img = Image.open(self.image.path)
+        img = Image.open(self.cover_image.path)
 
         #相机或手机拍摄图片需要根据exif旋转角度
         try:
@@ -172,7 +172,7 @@ class Person(models.Model):
         except:
           pass
 
-        img.save(self.image.path, quality=100)
+        img.save(self.cover_image.path, quality=100)
 
 class PersonImage(models.Model):
     person = models.ForeignKey(Person, default=None, on_delete=models.CASCADE)
@@ -251,7 +251,7 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         super(Event, self).save(*args, **kwargs)
-        img = Image.open(self.image.path)
+        img = Image.open(self.cover_image.path)
 
         #相机或手机拍摄图片需要根据exif旋转角度
         try:
@@ -277,7 +277,7 @@ class Event(models.Model):
         except:
           pass
 
-        img.save(self.image.path, quality=100)
+        img.save(self.cover_image.path, quality=100)
 
 class EventImage(models.Model):
     event = models.ForeignKey(Event, default=None, on_delete=models.CASCADE)
