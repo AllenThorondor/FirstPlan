@@ -38,6 +38,36 @@ class Collection(models.Model):
     def get_collection_id(self):
         return str(self.id)
 
+    def save(self, *args, **kwargs):
+        super(Collection, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        #相机或手机拍摄图片需要根据exif旋转角度
+        try:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation': break
+            exif = dict(img._getexif().items())
+            if exif[orientation] == 1:
+                pass
+            elif exif[orientation] == 2:
+                img = img.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+            elif exif[orientation] == 4:
+                img = img.rotate(180).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 5:
+                img = img.rotate(-90, expand=True).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+            elif exif[orientation] == 7:
+                img = img.rotate(90, expand=True).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+        except:
+          pass
+
+        img.save(self.image.path, quality=100)
+
 class CollectionImage(models.Model):
     collection = models.ForeignKey(Collection, default=None, on_delete=models.CASCADE)
     image = models.ImageField(
@@ -114,6 +144,36 @@ class Person(models.Model):
     def get_person_id(self):
         return str(self.id)
 
+    def save(self, *args, **kwargs):
+        super(Person, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        #相机或手机拍摄图片需要根据exif旋转角度
+        try:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation': break
+            exif = dict(img._getexif().items())
+            if exif[orientation] == 1:
+                pass
+            elif exif[orientation] == 2:
+                img = img.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+            elif exif[orientation] == 4:
+                img = img.rotate(180).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 5:
+                img = img.rotate(-90, expand=True).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+            elif exif[orientation] == 7:
+                img = img.rotate(90, expand=True).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+        except:
+          pass
+
+        img.save(self.image.path, quality=100)
+
 class PersonImage(models.Model):
     person = models.ForeignKey(Person, default=None, on_delete=models.CASCADE)
     image = models.ImageField(
@@ -188,6 +248,36 @@ class Event(models.Model):
 
     def get_event_id(self):
         return str(self.id)
+
+    def save(self, *args, **kwargs):
+        super(Event, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        #相机或手机拍摄图片需要根据exif旋转角度
+        try:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation': break
+            exif = dict(img._getexif().items())
+            if exif[orientation] == 1:
+                pass
+            elif exif[orientation] == 2:
+                img = img.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+            elif exif[orientation] == 4:
+                img = img.rotate(180).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 5:
+                img = img.rotate(-90, expand=True).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+            elif exif[orientation] == 7:
+                img = img.rotate(90, expand=True).transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+        except:
+          pass
+
+        img.save(self.image.path, quality=100)
 
 class EventImage(models.Model):
     event = models.ForeignKey(Event, default=None, on_delete=models.CASCADE)
