@@ -18,19 +18,21 @@
          </div>
        </div>
        <div class="">
-         <small class="text-muted mr-3">专题描述：{{ collection.discription }}</small>
+         <!--small class="text-muted mr-3">专题描述：{{ collection.discription }}</small-->
          <small class="text-muted mr-3">专题点滴：{{ collection.note }}</small>
-         <small class="text-muted mr-3">专题作者：{{ collection.author }}</small>
-         <small class="text-muted mr-3">创建时间：{{ collection.date_created }}</small>
+         <div class="">
+           <small class="text-muted mr-3">专题作者：{{ collection.author }}</small>
+           <small class="text-muted mr-3">创建时间：{{ collection.date_created }}</small>
+         </div>
        </div>
 
        {% if collection.cover_image.url != '' %}
        <div class="article-metadata">
           <legend >封面人物</legend>
             <img class="img-thumbnail" src="{{ collection.thumbnail.url }}" alt="">
-            <div class="">
+            <!--div class="">
               <p class="mr-2" >图片描述：{{ collection.note }}</p>
-            </div>
+            </div-->
 
           <legend>专题图片</legend>
             {% for photo in photos %}
