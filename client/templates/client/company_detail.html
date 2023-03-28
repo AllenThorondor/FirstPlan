@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <!-- here is the article style starts -->
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <div style="width:80px; float:left;">
+              <figure>
+                <img class="rounded-circle article-img" src="{{ company.author.profile.image.url }}" alt="">
+              </figure>
+            </div>
+
+            <div class="">
+              <a class="mr-2" href="">{{ company.author}}</a>
+              <small class="text-muted">{{ company.date_posted}}</small>
+              <h2 class="article-title">{{ company.name }}</h2>
+              <div class="" style="display:flex">
+                {% for tag in company.tags.all %}
+                <a href="{% url 'company-tagged' tag.id %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <p class="article-content" style="float:left;">{{ company.content}}</p>
+
+      </div>
+      </article>
+
+      {% if company.author == user %}
+      <article class="media content-section">
+        <div class="media-body" >
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'company-update' company.id %}">修改</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'company-delete' company.id %}">删除</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'company-add' company.id %}">更新</a>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'company-home' %}">返回</a>
+        </div >
+      </article>
+
+      <article class="media content-section">
+        <div class="media-body">
+          <p class="article-content" style="float:left;">客户地址：{{ company.address}}</p>
+        </div>
+      </article>
+
+        {% for update in updates %}
+            <article class="media content-section">
+             <div class="">
+               <a>{{ update.story }}</a>
+             </div>
+            </article>
+        {% endfor %}
+      {% endif %}
+
+    <!-- here is the article style ends -->
+{% endblock content %}

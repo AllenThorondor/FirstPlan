@@ -37,6 +37,7 @@ urlpatterns = [
     path('plans/', include("plans.urls")),
     path('health/', include("health.urls")),
     path('moments/', include("moments.urls")),
+    path('client/', include("client.urls")),
 ]
 
 if settings.DEBUG:

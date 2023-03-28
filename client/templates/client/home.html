@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+  <article class="media content-section">
+    <a class="btn btn-outline-secondary" href="{% url 'company-create'%}">新的客户</a>
+  </article>
+    <p>Common Tags:
+            {% for mt in common_tags %}
+                <a href="{% url 'company-tagged' mt.id %}" class="badge badge-success">#{{mt}}</a>
+            {% endfor %}
+            </p>
+    {% for company in companys %}
+    <!-- here is the article style starts -->
+      <article class="media content-section">
+
+          <div class="media-body">
+            <div style="width:80px; float:left;">
+              <figure>
+                <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
+              </figure>
+            </div>
+            <div class="article-metadata">
+              <a class="mr-2" href="">{{ company.author}}</a>
+              <small class="text-muted">{{ company.date_posted}}</small>
+
+              <h2>
+                <font font size='5'>
+                  <a class="article-title" href="{% url 'company-detail' company.id %}">{{ company.name }}</a>
+                </font>
+              </h2>
+              <div class="" style="display:flex">
+                {% for tag in company.tags.all %}
+                <a href="{% url 'company-tagged' tag.id %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+                {% endfor %}
+              </div>
+            </div>
+            {% if company.content|length > 1000 %}
+              <p class="article-content" style="float:left;">{{ company.content|truncatechars:100 }}</p>
+            {% else %}
+              <p class="article-content" style="float:left;">{{ company.content }}</p>
+            {% endif %}
+
+          </div>
+        </article>
+    <!-- here is the article style ends -->
+    {% endfor %}
+
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">首页</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">前页</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">后页</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">尾页</a>
+      {% endif %}
+    {% endif %}
+{% endblock content %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'flight.apps.FlightConfig',
+    'client.apps.ClientConfig',
     'penny.apps.PennyConfig',
     'plans.apps.PlansConfig',
     'health.apps.HealthConfig',
