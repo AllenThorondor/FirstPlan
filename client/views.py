@@ -109,3 +109,16 @@ def add_company_update(request, pk, *args, **kwargs):
     else:
         l_form = CompanyUpdateForm()
     return render(request, 'client/add.html', {'form' : l_form, 'pk' : pk})
+
+@login_required
+def search(request):
+    q = request.GET.get('q')
+    error_msg = ''
+
+    if not q:
+        error_msg = '请输入关键词'
+        return render(request, 'client/errors.html', {'error_msg': error_msg})
+
+    company_list = Company.objects.filter(name__icontains=q)
+    return render(request, 'client/results.html', {'error_msg': error_msg,
+                                               'company_list': company_list})

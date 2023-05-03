@@ -3,6 +3,11 @@
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'company-create'%}">新的客户</a>
   </article>
+    <form method="get" action="/search/">
+      {% csrf_token %}
+        <input type="search" placeholder="搜索" required>
+        <button type="submit">搜索</button>
+    </form>
     <p>Common Tags:
             {% for mt in common_tags %}
                 <a href="{% url 'company-tagged' mt.id %}" class="badge badge-success">#{{mt}}</a>

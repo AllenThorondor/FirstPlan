@@ -1,0 +1,43 @@
+
+
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
+{% for company in company_list %}
+<article class="media content-section">
+
+    <div class="media-body">
+      <div style="width:80px; float:left;">
+        <!--figure>
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
+        </figure-->
+      </div>
+      <div class="article-metadata">
+        <a class="mr-2" href="">{{ company.author}}</a>
+        <small class="text-muted">{{ company.date_posted}}</small>
+
+        <h2>
+          <font font size='5'>
+            <a class="article-title" href="{% url 'company-detail' company.id %}">{{ company.name }}</a>
+          </font>
+        </h2>
+        <div class="" style="display:flex">
+          {% for tag in company.tags.all %}
+          <a href="{% url 'company-tagged' tag.id %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% if company.content|length > 1000 %}
+        <p class="article-content" style="float:left;">{{ company.content|truncatechars:100 }}</p>
+      {% else %}
+        <p class="article-content" style="float:left;">{{ company.content }}</p>
+      {% endif %}
+
+    </div>
+  </article>
+{% empty %}
+  <div class="no-post">
+    没有搜索到符合条件的文章
+  </div>
+{% endfor %}
