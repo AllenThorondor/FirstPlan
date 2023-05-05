@@ -1,4 +1,5 @@
-
+{% extends 'blog/base.html' %}
+{% block content %}
 
 {% if error_msg %}
     <p>{{ error_msg }}</p>
@@ -41,3 +42,4 @@
     没有搜索到符合条件的文章
   </div>
 {% endfor %}
+{% endblock content %}

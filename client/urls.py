@@ -16,5 +16,5 @@ urlpatterns = [
     #path('about/', views.about, name = "blog-about"),
     path('tag/<int:pk>/', views.tagged, name="company-tagged"),
     path('company/<int:pk>/add', views.add_company_update, name = "company-add"),
-    path(r'^search/$', views.search, name = 'search'),
+    path(r'^search/$', views.search, name = 'company-search'),
 ]
