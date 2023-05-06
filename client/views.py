@@ -9,17 +9,19 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView)
+    DeleteView,
+    FormView)
 from .models import Company, CompanyUpdate
 from .forms import CompanyUpdateForm
 from taggit.models import Tag
+import markdown2
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'client/home.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'companys'
-    ordering = ['-date_posted']
+    ordering = ['date_posted']
 
     def get_queryset(self, *args, **kwargs):
         return Company.objects.filter(author=self.request.user).order_by('-date_posted')
@@ -43,6 +45,25 @@ def company_detail_view(request, pk, *args, **kwargs):
         'updates'   :   updates,
         'page'  :   page,
     })
+
+
+class CompanyDetailView(DetailView):
+    model = Company
+    template_name = 'client/company_detail.html'
+    context_object_name = 'company'
+    pk_url_kwargs = 'company_id'
+
+    def get_object(self, queryset=None):
+        obj = super(CompanyDetailView, self).get_object()
+        #obj.story = markdown2.markdown(obj.story, extras=['fenced-code-blocks'], )
+
+        return obj
+
+    def get_context_data(self, **kwargs):
+        kwargs['updates'] = self.object.companyupdate_set.all()
+        kwargs['form'] = CompanyUpdateForm()
+
+        return super(CompanyDetailView, self).get_context_data(**kwargs)
 
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
@@ -109,6 +130,29 @@ def add_company_update(request, pk, *args, **kwargs):
     else:
         l_form = CompanyUpdateForm()
     return render(request, 'client/add.html', {'form' : l_form, 'pk' : pk})
+
+class CompanyProgressView(FormView):
+    form_class = CompanyUpdateForm
+    template_name = 'client/company_detail.html'
+
+    def form_valid(self, form):
+        target_company = get_object_or_404(Company, pk=self.kwargs['company_id'])
+        update = form.save(commit=False)
+
+        update.company = target_company
+        update.save()
+
+        self.success_url = target_company.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_company = get_object_or_404(Company, pk=self.kwargs['company_id'])
+
+        return render(self.request, 'client/company_detail.html', {
+            'form' : form,
+            'company' : target_company,
+            'update_list' : target_company.update_set.all()
+        })
 
 @login_required
 def search(request):

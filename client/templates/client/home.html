@@ -5,7 +5,7 @@
   </article>
     <form role="search" method="get" id="searchform" action="{% url 'company-search' %}">
       {% csrf_token %}
-        <input type="search" name="q" placeholder="搜索" required>
+        <input type="search" name="q" placeholder="输入公司名称" required>
         <button type="submit"><span class="ion-ios-search-strong">搜索</span></button>
     </form>
     <p>Common Tags:

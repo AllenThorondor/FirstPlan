@@ -1,9 +1,11 @@
 from django.urls import path
 from .views import (
     CompanyListView,
+    CompanyDetailView,
     CompanyCreateView,
     CompanyUpdateView,
-    CompanyDeleteView)
+    CompanyDeleteView,
+    CompanyProgressView)
 from . import views
 
 urlpatterns = [

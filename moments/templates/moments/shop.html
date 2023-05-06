@@ -75,7 +75,7 @@
                       	</div>
 					</div>
 					<div class="product-content">
-						<h4><a href="{% url 'single' cato pk photo.id %}">{{ photo.story }}</a></h4>
+						<h4><a href="{% url 'single' cato pk photo.id %}">{{ photo.story|truncatechars:20 }}</a></h4>
 
 					</div>
 				</div>

@@ -6,10 +6,10 @@ from taggit.managers import TaggableManager
 
 class Company(models.Model):
     name = models.CharField(max_length=100, verbose_name='客户名称', help_text='客户名称全称')
-    address = models.CharField(max_length=100, verbose_name='地址', help_text='用改地址拜访客户')
+    address = models.CharField(max_length=100, blank=True, verbose_name='地址', help_text='客户办公地址')
     content = models.TextField(verbose_name='内容', help_text='客户情况简述')
     date_posted = models.DateTimeField(default=timezone.now, verbose_name='发布时间')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='作者')
     tags = TaggableManager()
 
     def __str__(self):
