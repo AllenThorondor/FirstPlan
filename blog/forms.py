@@ -6,9 +6,9 @@ class PostImageForm(forms.ModelForm):
 
     class Meta:
         model = PostImage
-        fields = ['post', 'story', 'image' ]
+        fields = ['story', 'image' ]
 
-    post = forms.ModelChoiceField(queryset=Post.objects.order_by("-date_posted"))
+    #post = forms.ModelChoiceField(queryset=Post.objects.order_by("-date_posted"))
 
 '''    def __init__(self, *args, **kwargs):
         post_id = kwargs.pop('id', None)

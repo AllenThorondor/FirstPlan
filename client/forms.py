@@ -6,4 +6,4 @@ class CompanyUpdateForm(forms.ModelForm):
 
     class Meta:
         model = CompanyUpdate
-        fields = ['story', 'company']
+        fields = ['story']

@@ -6,6 +6,6 @@ class FlashForm(forms.ModelForm):
 
     class Meta:
         model = Flash
-        fields = ['lane', 'story', 'picture' ]
+        fields = ['story', 'picture' ]
 
-    lane = forms.ModelChoiceField(queryset=Lane.objects.order_by('-takeoff_time'))
+    #lane = forms.ModelChoiceField(queryset=Lane.objects.order_by('-takeoff_time'))

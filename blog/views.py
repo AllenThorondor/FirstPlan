@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -9,7 +9,8 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView)
+    DeleteView,
+    FormView)
 from .models import Post, PostImage
 from .forms import PostImageForm
 from taggit.models import Tag
@@ -122,3 +123,32 @@ def add_post_image(request, pk, *args, **kwargs):
     else:
         l_form = PostImageForm()
     return render(request, 'blog/add.html', {'form' : l_form, 'pk' : pk})
+
+class ImageAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = PostImageForm
+    template_name = 'blog/add.html'
+
+    def test_func(self):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        if self.request.user == post.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.post = target_post
+        update.save()
+
+        self.success_url = target_post.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_company = get_object_or_404(Post, pk=self.kwargs['company_id'])
+
+        return render(self.request, 'client/company_detail.html', {
+            'form' : form,
+            'company' : target_company,
+            'update_list' : target_company.update_set.all()
+        })

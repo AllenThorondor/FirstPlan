@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -131,12 +131,18 @@ def add_company_update(request, pk, *args, **kwargs):
         l_form = CompanyUpdateForm()
     return render(request, 'client/add.html', {'form' : l_form, 'pk' : pk})
 
-class CompanyProgressView(FormView):
+class CompanyProgressView(LoginRequiredMixin, UserPassesTestMixin, FormView):
     form_class = CompanyUpdateForm
-    template_name = 'client/company_detail.html'
+    template_name = 'client/add.html'
+
+    def test_func(self):
+        company = get_object_or_404(Company, pk=self.kwargs['pk'])
+        if self.request.user == company.author:
+            return True
+        return False
 
     def form_valid(self, form):
-        target_company = get_object_or_404(Company, pk=self.kwargs['company_id'])
+        target_company = get_object_or_404(Company, pk=self.kwargs['pk'])
         update = form.save(commit=False)
 
         update.company = target_company

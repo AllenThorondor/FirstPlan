@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -6,7 +6,8 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView)
+    DeleteView,
+    FormView)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Lane, Flash, LaneImage
@@ -42,7 +43,7 @@ def detail_view(request, pk, *args, **kwargs):
         'photos' : photos,
         'flashs' : flashs
     })
-"""
+
 class LaneDetailView(LoginRequiredMixin, DetailView):
     model = Lane
 
@@ -52,7 +53,6 @@ class LaneDetailView(LoginRequiredMixin, DetailView):
         context['flashes'] = Flash.objects.filter(lane=lane)
         return context
 
-"""
 
 
 
@@ -90,6 +90,35 @@ def add(request, pk, *args, **kwargs):
         l_form = FlashForm()
     return render(request, 'flight/add.html', {'form' : l_form})
 
+
+class ImageAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = FlashForm
+    template_name = 'flight/add.html'
+
+    def test_func(self):
+        post = get_object_or_404(Lane, pk=self.kwargs['pk'])
+        if self.request.user == post.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_lane = get_object_or_404(Lane, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.lane = target_lane
+        update.save()
+
+        self.success_url = target_lane.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_company = get_object_or_404(Lane, pk=self.kwargs['company_id'])
+
+        return render(self.request, 'client/company_detail.html', {
+            'form' : form,
+            'company' : target_company,
+            'update_list' : target_company.update_set.all()
+        })
 
 class LaneDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Lane
