@@ -21,14 +21,14 @@ class CompanyListView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'client/home.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'companys'
-    ordering = ['date_posted']
+    ordering = ['-date_posted']
 
     def get_queryset(self, *args, **kwargs):
         return Company.objects.filter(author=self.request.user).order_by('-date_posted')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['common_tags'] = Company.tags.most_common()[:10]
+        context['common_tags'] = Company.tags.most_common()[:20]
 
         return context
 

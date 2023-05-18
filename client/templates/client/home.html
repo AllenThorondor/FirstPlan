@@ -1,13 +1,16 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+
   <article class="media content-section">
     <a class="btn btn-outline-secondary" href="{% url 'company-create'%}">新的客户</a>
   </article>
-    <form role="search" method="get" id="searchform" action="{% url 'company-search' %}">
+  <article class="">
+    <form class="media content-section" role="search" method="get" id="searchform" action="{% url 'company-search' %}">
       {% csrf_token %}
-        <input type="search" name="q" placeholder="输入公司名称" required>
-        <button type="submit"><span class="ion-ios-search-strong">搜索</span></button>
+        <input class="searchform" type="search" name="q" placeholder="输入公司名称" required>
+        <button type="submit" ><span class="ion-ios-search-strong">搜索</span></button>
     </form>
+  </article>
     <p>Common Tags:
             {% for mt in common_tags %}
                 <a href="{% url 'company-tagged' mt.id %}" class="badge badge-success">#{{mt}}</a>

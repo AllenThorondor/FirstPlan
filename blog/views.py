@@ -98,7 +98,7 @@ def about(request):
 
 def tagged(request, pk):
     tag = get_object_or_404(Tag, id=pk)
-    common_tags = Post.tags.most_common()[:4]
+    common_tags = Post.tags.most_common()[:10]
 
     posts = Post.objects.filter(author=request.user, tags=tag)
 
