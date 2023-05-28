@@ -17,7 +17,7 @@ from .views import (
     PersonDeleteView,
     PersonImageDeleteView,
     EventDeleteView,
-    EventImageDeleteView
+    EventImageDeleteView,
     )
 from . import views
 
@@ -55,4 +55,6 @@ urlpatterns = [
     path('event/image/<int:pk>/', views.event_image_detail_view, name = "event-image-detail"),
     path('event/image/<int:pk>/delete', EventImageDeleteView.as_view(), name = "event-image-delete"),
     path('event/image/<int:pk>/update', EventImageUpdateView.as_view(), name = "event-image-update"),
+
+    path(r'^search/$', views.search, name = 'image-search'),
 ]

@@ -107,7 +107,8 @@ FACEBOOK: https://www.facebook.com/themefisher
 								class="tf-ion-ios-search-strong"></i>搜索</a>
 						<ul class="dropdown-menu search-dropdown">
 							<li>
-								<form action="post"><input type="search" class="form-control" placeholder="暂不可用..."></form>
+								<form role="search" method="get" id="searchform" action="{% url 'image-search' %}"><input type="search" name="que" class="form-control" placeholder="搜索姓名或词汇"></form>
+                <!--button type="submit" ><span class="ion-ios-search-strong">搜索</span></button-->
 							</li>
 						</ul>
 					</li><!-- / Search -->

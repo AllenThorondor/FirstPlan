@@ -342,7 +342,23 @@ def add_event(request, cato, pk, *args, **kwargs):
     return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
 
 
+@login_required
+def search(request):
+    q = request.GET.get('que')
+    error_msg = ''
 
+    if not q:
+        error_msg = '没有找到关联图片'
+        return render(request, 'client/errors.html', {'error_msg': error_msg})
+
+    image_list1 = CollectionImage.objects.filter(story__icontains=q)
+    image_list2 = EventImage.objects.filter(story__icontains=q)
+    image_list3 = PersonImage.objects.filter(story__icontains=q)
+
+    return render(request, 'moments/results.html', {'error_msg': error_msg,
+                                               'collection_image': image_list1,
+                                               'event_image': image_list2,
+                                               'person_image': image_list3})
 #example code here
 """
 class LaneDetailView(LoginRequiredMixin, DetailView):
