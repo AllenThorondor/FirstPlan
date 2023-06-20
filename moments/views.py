@@ -133,35 +133,6 @@ class CollectionImageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteV
             return True
         return False
 
-@login_required
-def collection_detail_view(request, pk, *args, **kwargs):
-    collection = get_object_or_404(Collection, id = pk)
-    photos = CollectionImage.objects.filter(collection=collection)
-    return render(request, 'moments/collection_detail.html', {
-        'collection' : collection,
-        'photos' : photos
-    })
-
-@login_required
-def collection_image_detail_view(request, pk, *args, **kwargs):
-    info = get_object_or_404(CollectionImage, id = pk)
-    photo = CollectionImage.objects.filter(id=pk)
-    return render(request, 'moments/collectionimage_detail.html', {
-        'info' : info,
-        'photos' : photo
-    })
-
-def add_collection(request, cato, pk, *args, **kwargs):
-    if request.method =='POST':
-        l_form = CollectionImageForm(request.POST, request.FILES)
-        l_form.fields['collection'].queryset = Collection.objects.filter(id=pk)
-        if l_form.is_valid():
-            l_form.save()
-            messages.success(request, f'your image have beed added, good job!')
-    else:
-        l_form = CollectionImageForm()
-    return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
-
 class CollectionAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
     form_class = CollectionImageForm
     template_name = 'moments/add.html'
@@ -190,6 +161,36 @@ class CollectionAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
             'collection' : target_collection,
             'update_list' : target_collection.update_set.all()
         })
+
+@login_required
+def collection_detail_view(request, pk, *args, **kwargs):
+    collection = get_object_or_404(Collection, id=pk)
+    photos = CollectionImage.objects.filter(collection=collection)
+    return render(request, 'moments/collection_detail.html', {
+        'collection' : collection,
+        'photos' : photos
+    })
+
+@login_required
+def collection_image_detail_view(request, pk, *args, **kwargs):
+    info = get_object_or_404(CollectionImage, id = pk)
+    photo = CollectionImage.objects.filter(id=pk)
+    return render(request, 'moments/collectionimage_detail.html', {
+        'info' : info,
+        'photos' : photo
+    })
+
+def add_collection(request, cato, pk, *args, **kwargs):
+    if request.method =='POST':
+        l_form = CollectionImageForm(request.POST, request.FILES)
+        l_form.fields['collection'].queryset = Collection.objects.filter(id=pk)
+        if l_form.is_valid():
+            l_form.save()
+            messages.success(request, f'your image have beed added, good job!')
+    else:
+        l_form = CollectionImageForm()
+    return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
+
 
 # person code here.
 class PersonCreateView(LoginRequiredMixin, CreateView):
@@ -251,6 +252,35 @@ class PersonImageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
             return True
         return False
 
+class PersonAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = PersonImageForm
+    template_name = 'moments/add.html'
+
+    def test_func(self):
+        person = get_object_or_404(Person, pk=self.kwargs['pk'])
+        if self.request.user == person.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_person = get_object_or_404(Person, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.person = target_person
+        update.save()
+
+        self.success_url = target_person.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_person = get_object_or_404(Person, pk=self.kwargs['person_id'])
+
+        return render(self.request, 'moments/person_detail.html', {
+            'form' : form,
+            'person' : target_person,
+            'update_list' : target_person.update_set.all()
+        })
+
 @login_required
 def person_detail_view(request, pk, *args, **kwargs):
     person = get_object_or_404(Person, id = pk)
@@ -280,34 +310,7 @@ def add_person(request, cato, pk, *args, **kwargs):
         l_form = PersonImageForm()
     return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
 
-class PersonAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
-    form_class = PersonImageForm
-    template_name = 'moments/add.html'
 
-    def test_func(self):
-        person = get_object_or_404(Person, pk=self.kwargs['pk'])
-        if self.request.user == person.author:
-            return True
-        return False
-
-    def form_valid(self, form):
-        target_person = get_object_or_404(Person, pk=self.kwargs['pk'])
-        update = form.save(commit=False)
-
-        update.person = target_person
-        update.save()
-
-        self.success_url = target_person.get_absolute_url()
-        return HttpResponseRedirect(self.success_url)
-
-    def form_invalid(self, form):
-        target_person = get_object_or_404(Person, pk=self.kwargs['person_id'])
-
-        return render(self.request, 'moments/person_detail.html', {
-            'form' : form,
-            'person' : target_person,
-            'update_list' : target_person.update_set.all()
-        })
 # event code here.
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
@@ -368,6 +371,35 @@ class EventListView(LoginRequiredMixin, ListView):
     ordering = ['date_created']
     paginate_by = 10
 
+class EventAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = EventImageForm
+    template_name = 'moments/add.html'
+
+    def test_func(self):
+        event = get_object_or_404(Event, pk=self.kwargs['pk'])
+        if self.request.user == event.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_event = get_object_or_404(Event, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.event = target_event
+        update.save()
+
+        self.success_url = target_event.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_event = get_object_or_404(Event, pk=self.kwargs['event_id'])
+
+        return render(self.request, 'moments/event_detail.html', {
+            'form' : form,
+            'event' : target_event,
+            'update_list' : target_event.update_set.all()
+        })
+
 @login_required
 def event_detail_view(request, pk, *args, **kwargs):
     event = get_object_or_404(Event, id = pk)
@@ -397,34 +429,6 @@ def add_event(request, cato, pk, *args, **kwargs):
         l_form = EventImageForm()
     return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
 
-class EventAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
-    form_class = EventImageForm
-    template_name = 'moments/add.html'
-
-    def test_func(self):
-        event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        if self.request.user == event.author:
-            return True
-        return False
-
-    def form_valid(self, form):
-        target_event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        update = form.save(commit=False)
-
-        update.event = target_event
-        update.save()
-
-        self.success_url = target_event.get_absolute_url()
-        return HttpResponseRedirect(self.success_url)
-
-    def form_invalid(self, form):
-        target_event = get_object_or_404(Event, pk=self.kwargs['event_id'])
-
-        return render(self.request, 'moments/event_detail.html', {
-            'form' : form,
-            'event' : target_event,
-            'update_list' : target_event.update_set.all()
-        })
 
 @login_required
 def search(request):
