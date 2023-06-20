@@ -43,9 +43,9 @@
 						<!-- thumb -->
 						<ol class='carousel-indicators mCustomScrollbar meartlab'>
 							{% for pic in pics %}
-							<li data-target='#carousel-custom' data-slide-to='1' class='active'>
-								<img src='{{ pic.thumbnail.url }}' alt='' />
-							</li>
+									<li data-target='#carousel-custom' data-slide-to='0' class='active'>
+										<img src='{{ pic.thumbnail.url }}' alt='' />
+									</li>
 							{% endfor %}
 						</ol>
 					</div>
@@ -54,8 +54,7 @@
 			<div class="col-md-12">
 				<div class="single-product-details">
 					<p>图片时间：{{ photo.update_time }}</p>
-					<p class="product-price">图片序号：{{ photo.id }}</p>
-
+					<p class="product-description mt-20">图片序号：{{ photo.id }}</p>
 					<p class="product-description mt-20">图片描述：{{ photo.story }}</p>
 				</div>
 			</div>
