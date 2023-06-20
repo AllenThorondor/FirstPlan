@@ -14,13 +14,13 @@
 			</div>
 			<div class="col-md-6">
 				<ol class="product-pagination text-right">
-					<li><a href="blog-left-sidebar.html"><i class="tf-ion-ios-arrow-left"></i> Next </a></li>
-					<li><a href="blog-left-sidebar.html">Preview <i class="tf-ion-ios-arrow-right"></i></a></li>
+					<li><a href=""><i class="tf-ion-ios-arrow-left"></i> Next </a></li>
+					<li><a href="">Preview <i class="tf-ion-ios-arrow-right"></i></a></li>
 				</ol>
 			</div>
 		</div>
 		<div class="row mt-20">
-			<div class="col-md-5">
+			<div class="col-md-12">
 				<div class="single-product-slider">
 					<div id='carousel-custom' class='carousel slide' data-ride='carousel'>
 						<div class='carousel-outer'>
@@ -42,32 +42,16 @@
 
 						<!-- thumb -->
 						<ol class='carousel-indicators mCustomScrollbar meartlab'>
-							<li data-target='#carousel-custom' data-slide-to='0' class='active'>
-								<img src='images/shop/single-products/product-1.jpg' alt='' />
+							{% for pic in pics %}
+							<li data-target='#carousel-custom' data-slide-to='1' class='active'>
+								<img src='{{ pic.image.url }}' alt='' />
 							</li>
-							<li data-target='#carousel-custom' data-slide-to='1'>
-								<img src='images/shop/single-products/product-2.jpg' alt='' />
-							</li>
-							<li data-target='#carousel-custom' data-slide-to='2'>
-								<img src='images/shop/single-products/product-3.jpg' alt='' />
-							</li>
-							<li data-target='#carousel-custom' data-slide-to='3'>
-								<img src='images/shop/single-products/product-4.jpg' alt='' />
-							</li>
-							<li data-target='#carousel-custom' data-slide-to='4'>
-								<img src='images/shop/single-products/product-5.jpg' alt='' />
-							</li>
-							<li data-target='#carousel-custom' data-slide-to='5'>
-								<img src='images/shop/single-products/product-6.jpg' alt='' />
-							</li>
-							<li data-target='#carousel-custom' data-slide-to='6'>
-								<img src='images/shop/single-products/product-7.jpg' alt='' />
-							</li>
+							{% endfor %}
 						</ol>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-12">
 				<div class="single-product-details">
 					<h2>图片时间：{{ photo.update_time }}</h2>
 					<p class="product-price">图片序号：{{ photo.id }}</p>

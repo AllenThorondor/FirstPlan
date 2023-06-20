@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import (
+    render, redirect, get_object_or_404, get_list_or_404, HttpResponseRedirect)
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -54,20 +55,23 @@ def shop(request, cato, pk, *args, **kwargs):
 def single(request, cato, pk, id, *args, **kwargs):
     if 'collection' in str(request.path):
         photo = get_object_or_404(CollectionImage, id = id)
+        pics = get_list_or_404(CollectionImage, collection_id = pk)
 
     elif 'person' in str(request.path):
         photo = get_object_or_404(PersonImage, id = id)
+        pics = get_list_or_404(PersonImage, person_id = pk)
 
     elif 'event' in str(request.path):
         photo = get_object_or_404(EventImage, id = id)
-
+        pics = get_list_or_404(EventImage, person_id = pk)
     else:
         return render(request, 'blog/about.html',{'title':'About'})
 
     context = {
         'photo' :   photo,
         'cato'  :   cato,
-        'pk'    :   pk
+        'pk'    :   pk,
+        'pics'  :   pics
     }
     return render(request, 'moments/product-single.html', context)
 
