@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -6,7 +6,8 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView)
+    DeleteView,
+    FormView,)
 from django.contrib.auth.decorators import login_required
 from .models import (
     Collection,
@@ -161,6 +162,34 @@ def add_collection(request, cato, pk, *args, **kwargs):
         l_form = CollectionImageForm()
     return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
 
+class CollectionAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = CollectionImageForm
+    template_name = 'moments/add.html'
+
+    def test_func(self):
+        collection = get_object_or_404(Collection, pk=self.kwargs['pk'])
+        if self.request.user == collection.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_collection = get_object_or_404(Collection, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.collection = target_collection
+        update.save()
+
+        self.success_url = target_collection.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_collection = get_object_or_404(Collection, pk=self.kwargs['collection_id'])
+
+        return render(self.request, 'moments/collection_detail.html', {
+            'form' : form,
+            'collection' : target_collection,
+            'update_list' : target_collection.update_set.all()
+        })
 
 # person code here.
 class PersonCreateView(LoginRequiredMixin, CreateView):
@@ -251,7 +280,34 @@ def add_person(request, cato, pk, *args, **kwargs):
         l_form = PersonImageForm()
     return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
 
+class PersonAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = PersonImageForm
+    template_name = 'moments/add.html'
 
+    def test_func(self):
+        person = get_object_or_404(Person, pk=self.kwargs['pk'])
+        if self.request.user == person.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_person = get_object_or_404(Person, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.person = target_person
+        update.save()
+
+        self.success_url = target_person.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_person = get_object_or_404(Person, pk=self.kwargs['person_id'])
+
+        return render(self.request, 'moments/person_detail.html', {
+            'form' : form,
+            'person' : target_person,
+            'update_list' : target_person.update_set.all()
+        })
 # event code here.
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
@@ -341,6 +397,34 @@ def add_event(request, cato, pk, *args, **kwargs):
         l_form = EventImageForm()
     return render(request, 'moments/add.html', {'form' : l_form, 'cato' : cato, 'pk' : pk})
 
+class EventAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    form_class = EventImageForm
+    template_name = 'moments/add.html'
+
+    def test_func(self):
+        event = get_object_or_404(Event, pk=self.kwargs['pk'])
+        if self.request.user == event.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        target_event = get_object_or_404(Event, pk=self.kwargs['pk'])
+        update = form.save(commit=False)
+
+        update.event = target_event
+        update.save()
+
+        self.success_url = target_event.get_absolute_url()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form):
+        target_event = get_object_or_404(Event, pk=self.kwargs['event_id'])
+
+        return render(self.request, 'moments/event_detail.html', {
+            'form' : form,
+            'event' : target_event,
+            'update_list' : target_event.update_set.all()
+        })
 
 @login_required
 def search(request):
