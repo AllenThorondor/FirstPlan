@@ -63,7 +63,7 @@ def single(request, cato, pk, id, *args, **kwargs):
 
     elif 'event' in str(request.path):
         photo = get_object_or_404(EventImage, id = id)
-        pics = get_list_or_404(EventImage, person_id = pk)
+        pics = get_list_or_404(EventImage, event_id = pk)
     else:
         return render(request, 'blog/about.html',{'title':'About'})
 
