@@ -43,7 +43,7 @@
    <div class="container">
 
       <nav class="navigation navbar is-white">
-         <a class="navbar-brand is-inline-flex ml-0 is-align-items-center" href="index.html">
+         <a class="navbar-brand is-inline-flex ml-0 is-align-items-center" href="">
             <img src="{% static 'blog/images/logo.png' %}" alt="logo">
          </a>
          <button role="button" class="navbar-burger burger" data-hidden="true" data-target="navigation">
@@ -54,34 +54,36 @@
 
          <ul class="navbar-end navbar-menu" id="navigation">
             <li class="navbar-item has-dropdown is-hoverable has-active">
-               <a class="navbar-link">Homepage <small class="ti-angle-down ml-1"></small></a>
+               <a class="navbar-link">右脑 <small class="ti-angle-down ml-1"></small></a>
                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="index-full.html">Homepage Full Width</a>
-                  <a class="navbar-item" href="index-full-left.html">Homepage Full With Left Sidebar</a>
-                  <a class="navbar-item" href="index-full-right.html">Homepage Full With Right Sidebar</a>
-                  <a class="navbar-item" href="index-list.html">Homepage List Style</a>
-                  <a class="navbar-item" href="index-list-left.html">Homepage List With Left Sidebar</a>
-                  <a class="navbar-item" href="index-list-right.html">Homepage List With Right Sidebar</a>
+                  <a class="navbar-item" href="{% url 'blog-home' %}">想法</a>
+                  <a class="navbar-item" href="{% url 'blog-about' %}">关于</a>
+                  <a class="navbar-item" href="{% url 'moments-index' %}">图片欣赏</a>
                </div>
             </li>
 
             <li class="navbar-item">
-               <a class="navbar-link is-arrowless" href="about.html">About</a>
-            </li>
-
-            <li class="navbar-item">
-               <a class="navbar-link is-arrowless" href="contact.html">Contact</a>
+               <a class="navbar-link is-arrowless" href="{% url 'blog-about' %}">About</a>
             </li>
 
             <li class="navbar-item has-dropdown is-hoverable has-active">
-               <a class="navbar-link">Pages <small class="ti-angle-down ml-1"></small></a>
+               <a class="navbar-link">图片欣赏 <small class="ti-angle-down ml-1"></small></a>
                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="author.html">Author</a>
-                  <a class="navbar-item" href="post-details-1.html">Post Details 1</a>
-                  <a class="navbar-item" href="post-details-2.html">Post Details 2</a>
-                  <a class="navbar-item" href="post-elements.html">Post Elements</a>
-                  <a class="navbar-item" href="privacy-policy.html">Privacy Policy</a>
-                  <a class="navbar-item" href="terms-conditions.html">Terms Conditions</a>
+                  <a class="navbar-item" href="{% url 'blog-home' %}">展示图床</a>
+                  <a class="navbar-item" href="{% url 'moments-home' %}">专题</a>
+                  <a class="navbar-item" href="{% url 'person-home' %}">人物</a>
+                  <a class="navbar-item" href="{% url 'event-home' %}">事件</a>
+               </div>
+            </li>
+
+            <li class="navbar-item has-dropdown is-hoverable has-active">
+               <a class="navbar-link">左脑<small class="ti-angle-down ml-1"></small></a>
+               <div class="navbar-dropdown">
+                 <a class="navbar-item" href="{% url 'plan-home' %}">任务系统</a>
+                 <a class="navbar-item" href="{% url 'penny-home' %}">记账功能</a>
+                 <a class="navbar-item" href="{% url 'flight-home' %}">航班登机</a>
+                 <a class="navbar-item" href="{% url 'health-home' %}">睡眠统计</a>
+                 <a class="navbar-item" href="{% url 'company-home' %}">客户信息</a>
                </div>
             </li>
 
@@ -118,11 +120,11 @@
         {% for post in posts %}
 				<article class="columns is-multiline is-justify-content-center mb-6">
 					<div class="column is-12">
-						<div class="post-slider">
+						<!--div class="post-slider">
 							<img loading="lazy" src="{% static 'blog/images/post/post-6.jpg' %}" class="" alt="post-thumb">
 							<img loading="lazy" src="{% static 'blog/images/post/post-1.jpg' %}" class="" alt="post-thumb">
 							<img loading="lazy" src="{% static 'blog/images/post/post-3.jpg' %}" class="" alt="post-thumb">
-						</div>
+						</div-->
 					</div>
 					<div class="column is-12">
 						<h3><a class="post-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>

@@ -184,6 +184,7 @@ def collection_image_detail_view(request, pk, *args, **kwargs):
         'photos' : photo
     })
 
+@login_required
 def add_collection(request, cato, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = CollectionImageForm(request.POST, request.FILES)
@@ -303,6 +304,7 @@ def person_image_detail_view(request, pk, *args, **kwargs):
         'photos' : photo
     })
 
+@login_required
 def add_person(request, cato, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = PersonImageForm(request.POST, request.FILES)
@@ -422,6 +424,7 @@ def event_image_detail_view(request, pk, *args, **kwargs):
         'photos' : photo
     })
 
+@login_required
 def add_event(request, cato, pk, *args, **kwargs):
     if request.method =='POST':
         l_form = EventImageForm(request.POST, request.FILES)
