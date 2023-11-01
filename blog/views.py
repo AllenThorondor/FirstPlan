@@ -18,7 +18,7 @@ from taggit.models import Tag
 
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = 'blog/home.html'  #<app>/<model>_<viewtype>.html
+    template_name = 'blog/index.html'  #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 10
@@ -30,7 +30,7 @@ class PostListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['common_tags'] = Post.tags.most_common()[:4]
+        context['common_tags'] = Post.tags.most_common()[:10]
 
         return context
 

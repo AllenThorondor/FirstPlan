@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load static %}
 <!--
  // WEBSITE: https://themefisher.com
  // TWITTER: https://twitter.com/themefisher
@@ -23,18 +23,18 @@
 
    <!-- plugins -->
    <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional;">
-   <link rel="stylesheet" href="plugins/bulma/bulma.min.css">
+   <link rel="stylesheet" href="{% static 'blog/plugins/bulma/bulma.min.css' %}">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen">
 
-   <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
-   <link rel="stylesheet" href="plugins/slick/slick.css">
+   <link rel="stylesheet" href="{% static 'blog/plugins/themify-icons/themify-icons.css' %}">
+   <link rel="stylesheet" href="{% static 'blog/plugins/slick/slick.css' %}">
 
    <!-- Main Stylesheet -->
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
 
    <!--Favicon-->
-   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-   <link rel="icon" href="images/favicon.png" type="image/x-icon">
+   <link rel="shortcut icon" href="{% static 'blog/images/favicon.png' %}" type="image/x-icon">
+   <link rel="icon" href="{% static 'blog/images/favicon.png' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
 
       <nav class="navigation navbar is-white">
          <a class="navbar-brand is-inline-flex ml-0 is-align-items-center" href="index.html">
-            <img src="images/logo.png" alt="logo">
+            <img src="{% static 'blog/images/logo.png' %}" alt="logo">
          </a>
          <button role="button" class="navbar-burger burger" data-hidden="true" data-target="navigation">
             <span aria-hidden="true"></span>
@@ -115,152 +115,65 @@
 	<div class="container">
 		<div class="columns is-desktop is-multiline">
 			<div class="column is-8-desktop">
+        {% for post in posts %}
 				<article class="columns is-multiline is-justify-content-center mb-6">
 					<div class="column is-12">
 						<div class="post-slider">
-							<img loading="lazy" src="images/post/post-6.jpg" class="" alt="post-thumb">
-							<img loading="lazy" src="images/post/post-1.jpg" class="" alt="post-thumb">
-							<img loading="lazy" src="images/post/post-3.jpg" class="" alt="post-thumb">
+							<img loading="lazy" src="{% static 'blog/images/post/post-6.jpg' %}" class="" alt="post-thumb">
+							<img loading="lazy" src="{% static 'blog/images/post/post-1.jpg' %}" class="" alt="post-thumb">
+							<img loading="lazy" src="{% static 'blog/images/post/post-3.jpg' %}" class="" alt="post-thumb">
 						</div>
 					</div>
 					<div class="column is-12">
-						<h3><a class="post-title" href="post-elements.html">Elements That You Can Use To Create A New Post On This Template.</a></h3>
+						<h3><a class="post-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
 						<ul class="list-inline post-meta mb-4">
 							<li class="list-inline-item"><i class="ti-user mr-2"></i>
-								<a href="author.html">John Doe</a>
+								<a href="{% url 'user-posts' post.author.username %}">{{ post.author}}</a>
 							</li>
-							<li class="list-inline-item">Date : March 15, 2020</li>
+							<li class="list-inline-item">Date : {{ post.date_posted}}</li>
 							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Photography </a>
 							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">Photo </a> ,<a href="#!" class="ml-1">Image </a>
+              {% for tag in post.tags.all %}
+							<li class="list-inline-item">Tags : <a href="{% url 'post-tagged' tag.id %}" class="ml-1">#{{ tag }} </a>
 							</li>
+              {% endfor %}
 						</ul>
-						<p>Heading example Here is example of hedings. You can use this heading by following markdownify rules. For example: use # for heading 1 and use ###### for heading 6. Heading 1 Heading 2 Heading 3 Heading 4 Heading 5 Heading 6 Emphasis Emphasis, aka italics, with asterisks or underscores.</p> <a href="post-elements.html" class="btn btn-outline-primary">Continue Reading</a>
+            {% if post.content|length > 1000 %}
+              <p class="article-content" style="float:left;">{{ post.content|truncatechars:100 }}</p>
+            {% else %}
+              <p class="article-content" style="float:left;">{{ post.content }}</p>
+            {% endif %}
+             <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-primary">Continue Reading</a>
 					</div>
 				</article>
-				<article class="columns is-multiline is-justify-content-center mb-6">
-					<div class="column is-12">
-						<div class="post-slider">
-							<img loading="lazy" src="images/post/post-1.jpg" class="" alt="post-thumb">
-						</div>
-					</div>
-					<div class="column is-12">
-						<h3><a class="post-title" href="post-details-1.html">Cheerful Loving Couple Bakers Drinking Coffee</a></h3>
-						<ul class="list-inline post-meta mb-4">
-							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">John Doe</a>
-							</li>
-							<li class="list-inline-item">Date : March 14, 2020</li>
-							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Photography </a>
-							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">Photo </a> ,<a href="#!" class="ml-1">Image </a>
-							</li>
-						</ul>
-						<p>It’s no secret that the digital industry is booming. From exciting startups to global brands, companies are reaching out to digital agencies, responding to the new possibilities available. However, the industry is fast becoming overccolumns is-multilineded, heaving with agencies offering similar services — on the surface, at least. Producing creative, fresh projects is the key to standing out.</p> <a href="post-details-1.html" class="btn btn-outline-primary">Continue Reading</a>
-					</div>
-				</article>
-				<article class="columns is-multiline is-justify-content-center mb-6">
-					<div class="column is-12">
-						<div class="post-slider">
-							<img loading="lazy" src="images/post/post-2.jpg" class="" alt="post-thumb">
-							<img loading="lazy" src="images/post/post-4.jpg" class="" alt="post-thumb">
-						</div>
-					</div>
-					<div class="column is-12">
-						<h3><a class="post-title" href="post-details-2.html">Cheerful Loving Couple Bakers Drinking Coffee</a></h3>
-						<ul class="list-inline post-meta mb-4">
-							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">John Doe</a>
-							</li>
-							<li class="list-inline-item">Date : March 14, 2020</li>
-							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Photobooth </a>
-							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">Booth </a> ,<a href="#!" class="ml-1">Image </a>
-							</li>
-						</ul>
-						<p>It’s no secret that the digital industry is booming. From exciting startups to global brands, companies are reaching out to digital agencies, responding to the new possibilities available. However, the industry is fast becoming overccolumns is-multilineded, heaving with agencies offering similar services — on the surface, at least. Producing creative, fresh projects is the key to standing out.</p> <a href="post-details-2.html" class="btn btn-outline-primary">Continue Reading</a>
-					</div>
-				</article>
-				<article class="columns is-multiline is-justify-content-center mb-6">
-					<div class="column is-12">
-						<div class="post-slider">
-							<img loading="lazy" src="images/post/post-3.jpg" class="" alt="post-thumb">
-						</div>
-					</div>
-					<div class="column is-12">
-						<h3><a class="post-title" href="post-details-2.html">Cheerful Loving Couple Bakers Drinking Coffee</a></h3>
-						<ul class="list-inline post-meta mb-4">
-							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">John Doe</a>
-							</li>
-							<li class="list-inline-item">Date : March 14, 2020</li>
-							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Videography </a>
-							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">Video </a> ,<a href="#!" class="ml-1">Image </a>
-							</li>
-						</ul>
-						<p>It’s no secret that the digital industry is booming. From exciting startups to global brands, companies are reaching out to digital agencies, responding to the new possibilities available. However, the industry is fast becoming overccolumns is-multilineded, heaving with agencies offering similar services — on the surface, at least. Producing creative, fresh projects is the key to standing out.</p> <a href="post-details-2.html" class="btn btn-outline-primary">Continue Reading</a>
-					</div>
-				</article>
-				<article class="columns is-multiline is-justify-content-center mb-6">
-					<div class="column is-12">
-						<div class="post-slider">
-							<img loading="lazy" src="images/post/post-4.jpg" class="" alt="post-thumb">
-							<img loading="lazy" src="images/post/post-1.jpg" class="" alt="post-thumb">
-						</div>
-					</div>
-					<div class="column is-12">
-						<h3><a class="post-title" href="post-details-1.html">Cheerful Loving Couple Bakers Drinking Coffee</a></h3>
-						<ul class="list-inline post-meta mb-4">
-							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">John Doe</a>
-							</li>
-							<li class="list-inline-item">Date : March 14, 2020</li>
-							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Four seasone </a>
-							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">Seasone </a>
-								,<a href="#!" class="ml-1">New </a>
-							</li>
-						</ul>
-						<p>It’s no secret that the digital industry is booming. From exciting startups to global brands, companies are reaching out to digital agencies, responding to the new possibilities available. However, the industry is fast becoming overccolumns is-multilineded, heaving with agencies offering similar services — on the surface, at least. Producing creative, fresh projects is the key to standing out.</p> <a href="post-details-1.html" class="btn btn-outline-primary">Continue Reading</a>
-					</div>
-				</article>
-				<article class="columns is-multiline is-justify-content-center mb-6">
-					<div class="column is-12">
-						<div class="post-slider">
-							<img loading="lazy" src="images/post/post-5.jpg" class="" alt="post-thumb">
-						</div>
-					</div>
-					<div class="column is-12">
-						<h3><a class="post-title" href="post-details-1.html">Cheerful Loving Couple Bakers Drinking Coffee</a></h3>
-						<ul class="list-inline post-meta mb-4">
-							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">John Doe</a>
-							</li>
-							<li class="list-inline-item">Date : March 14, 2020</li>
-							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Newyork city </a>
-							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">City </a> ,<a href="#!" class="ml-1">Photo </a>
-							</li>
-						</ul>
-						<p>It’s no secret that the digital industry is booming. From exciting startups to global brands, companies are reaching out to digital agencies, responding to the new possibilities available. However, the industry is fast becoming overccolumns is-multilineded, heaving with agencies offering similar services — on the surface, at least. Producing creative, fresh projects is the key to standing out.</p> <a href="post-details-1.html" class="btn btn-outline-primary">Continue Reading</a>
-					</div>
-				</article>
-				<article class="columns is-multiline is-justify-content-center mb-6">
-					<div class="column is-12">
-						<h3><a class="post-title" href="post-details-2.html">Cheerful Loving Couple Bakers Drinking Coffee</a></h3>
-						<ul class="list-inline post-meta mb-4">
-							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">John Doe</a>
-							</li>
-							<li class="list-inline-item">Date : March 14, 2020</li>
-							<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Newyork city </a>
-							</li>
-							<li class="list-inline-item">Tags : <a href="#!" class="ml-1">City </a> ,<a href="#!" class="ml-1">Photo </a>
-							</li>
-						</ul>
-						<p>It’s no secret that the digital industry is booming. From exciting startups to global brands, companies are reaching out to digital agencies, responding to the new possibilities available. However, the industry is fast becoming overccolumns is-multilineded, heaving with agencies offering similar services — on the surface, at least. Producing creative, fresh projects is the key to standing out.</p> <a href="post-details-2.html" class="btn btn-outline-primary">Continue Reading</a>
-					</div>
-				</article>
+        {% endfor %}
 			</div>
 			<aside class="column is-4-desktop">
+        <div class="widget">
+          <h5 class="widget-title"><span>页码</span></h5>
+          {% if is_paginated %}
+            {% if page_obj.has_previous %}
+              <a class="btn btn-outline-info mb-4" href="?page=1">首页</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">前页</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">后页</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">尾页</a>
+            {% endif %}
+          {% endif %}
+        </div>
 				   <!-- Search -->
    <div class="widget">
-      <h5 class="widget-title"><span>Search</span></h5>
+      <h5 class="widget-title"><span>搜索</span></h5>
       <form action="javascript:void(0)" class="widget-search">
          <input id="search-query2" name="s" type="search" placeholder="Type &amp; Hit Enter...">
          <button type="submit"><i class="ti-search"></i>
@@ -292,59 +205,25 @@
    <div class="widget">
       <h5 class="widget-title"><span>Tags</span></h5>
       <ul class="list-inline widget-list-inline">
-         <li class="list-inline-item"><a href="#!">Booth</a>
+        {% for mt in common_tags %}
+         <li class="list-inline-item"><a href="#!">#{{mt}}</a>
          </li>
-         <li class="list-inline-item"><a href="#!">City</a>
-         </li>
-         <li class="list-inline-item"><a href="#!">Image</a>
-         </li>
-         <li class="list-inline-item"><a href="#!">New</a>
-         </li>
-         <li class="list-inline-item"><a href="#!">Photo</a>
-         </li>
-         <li class="list-inline-item"><a href="#!">Seasone</a>
-         </li>
-         <li class="list-inline-item"><a href="#!">Video</a>
-         </li>
+        {% endfor %}
       </ul>
    </div>
    <!-- latest post -->
    <div class="widget">
-      <h5 class="widget-title"><span>Latest Article</span></h5>
+      <h5 class="widget-title"><span>最近的文章</span></h5>
       <!-- post-item -->
       <ul class="list-unstyled widget-list">
          <li class="media widget-post is-align-items-center">
             <a href="post-elements.html">
-               <img loading="lazy" src="images/post/post-6.jpg">
+               <img loading="lazy" src="{% static 'blog/images/post/post-6.jpg' %}">
             </a>
             <div class="ml-4">
                <h5 class="h6 mb-0"><a href="post-elements.html">Elements That You Can Use To Create A New Post On
                      This Template.</a></h5>
                <small>March 15, 2020</small>
-            </div>
-         </li>
-      </ul>
-      <ul class="list-unstyled widget-list">
-         <li class="media widget-post is-align-items-center">
-            <a href="post-details-1.html">
-               <img loading="lazy" src="images/post/post-1.jpg">
-            </a>
-            <div class="ml-4">
-               <h5 class="h6 mb-0"><a href="post-details-1.html">Cheerful Loving Couple Bakers Drinking Coffee</a>
-               </h5>
-               <small>March 14, 2020</small>
-            </div>
-         </li>
-      </ul>
-      <ul class="list-unstyled widget-list">
-         <li class="media widget-post is-align-items-center">
-            <a href="post-details-2.html">
-               <img loading="lazy" src="images/post/post-2.jpg">
-            </a>
-            <div class="ml-4">
-               <h5 class="h6 mb-0"><a href="post-details-2.html">Cheerful Loving Couple Bakers Drinking Coffee</a>
-               </h5>
-               <small>March 14, 2020</small>
             </div>
          </li>
       </ul>
@@ -406,10 +285,11 @@
 
 
    <!-- JS Plugins -->
-   <script src="plugins/jQuery/jquery.min.js"></script>
-   <script src="plugins/slick/slick.min.js"></script>
+   <script src="{% static 'blog/plugins/jQuery/jquery.min.js' %}"></script>
+   <script src="{% static 'blog/plugins/slick/slick.min.js' %}"></script>
 
    <!-- Main Script -->
-   <script src="js/script.js"></script>
+   <script src="{% static 'blog/js/script.js' %}"></script>
+
 </body>
 </html>
