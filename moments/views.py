@@ -90,7 +90,7 @@ class CollectionListView(LoginRequiredMixin, ListView):
     template_name = 'moments/home.html'
     context_object_name = 'collections'
     ordering = ['-date_created']
-    paginate_by = 10
+    #paginate_by = 10
 
 class CollectionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Collection
@@ -210,7 +210,7 @@ class PersonListView(LoginRequiredMixin, ListView):
     template_name = 'moments/person_home.html'
     context_object_name = 'persons'
     ordering = ['-date_created']
-    paginate_by = 10
+    #paginate_by = 10
 
 class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Person
@@ -375,7 +375,7 @@ class EventListView(LoginRequiredMixin, ListView):
     template_name = 'moments/event_home.html'
     context_object_name = 'events'
     ordering = ['date_created']
-    paginate_by = 10
+    #paginate_by = 10
 
 class EventAddView(LoginRequiredMixin, UserPassesTestMixin, FormView):
     form_class = EventImageForm
