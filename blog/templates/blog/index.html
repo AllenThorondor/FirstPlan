@@ -53,17 +53,8 @@
          </button>
 
          <ul class="navbar-end navbar-menu" id="navigation">
-            <li class="navbar-item has-dropdown is-hoverable has-active">
-               <a class="navbar-link">右脑 <small class="ti-angle-down ml-1"></small></a>
-               <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{% url 'blog-home' %}">想法</a>
-                  <a class="navbar-item" href="{% url 'blog-about' %}">关于</a>
-                  <a class="navbar-item" href="{% url 'moments-index' %}">图片欣赏</a>
-               </div>
-            </li>
-
             <li class="navbar-item">
-               <a class="navbar-link is-arrowless" href="{% url 'blog-about' %}">About</a>
+               <a class="navbar-link is-arrowless" href="{% url 'post-create'%}">新的想法</a>
             </li>
 
             <li class="navbar-item has-dropdown is-hoverable has-active">
@@ -86,7 +77,14 @@
                  <a class="navbar-item" href="{% url 'company-home' %}">客户信息</a>
                </div>
             </li>
-
+            <li class="navbar-item has-dropdown is-hoverable has-active">
+               <a class="navbar-link">右脑 <small class="ti-angle-down ml-1"></small></a>
+               <div class="navbar-dropdown">
+                  <a class="navbar-item" href="{% url 'blog-home' %}">想法</a>
+                  <a class="navbar-item" href="{% url 'blog-about' %}">关于</a>
+                  <a class="navbar-item" href="{% url 'moments-index' %}">图片欣赏</a>
+               </div>
+            </li>
             <li class="navbar-item">
                <select class="m-2 is-borderless" id="select-language">
                   <option id="en" value="about/" selected>En</option>
