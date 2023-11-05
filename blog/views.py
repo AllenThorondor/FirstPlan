@@ -52,7 +52,7 @@ def post_detail_view(request, pk, *args, **kwargs):
     photos = PostImage.objects.filter(post=post)
     page = request.GET.get('page')
 
-    return render(request, 'blog/post_detail.html', {
+    return render(request, 'blog/post-details-1.html', {
         'post' : post,
         'photos' : photos,
         'page' : page
