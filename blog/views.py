@@ -107,7 +107,7 @@ def tagged(request, pk):
         'common_tags':common_tags,
         'posts':posts,
     }
-    return render(request, 'blog/home.html', context)
+    return render(request, 'blog/index.html', context)
 
 @login_required
 def add_post_image(request, pk, *args, **kwargs):

@@ -43,7 +43,7 @@
    <div class="container">
 
       <nav class="navigation navbar is-white">
-         <a class="navbar-brand is-inline-flex ml-0 is-align-items-center" href="">
+         <a class="navbar-brand is-inline-flex ml-0 is-align-items-center" href="{% url 'blog-home' %}">
             <img src="{% static 'blog/images/logo.png' %}" alt="logo">
          </a>
          <button role="button" class="navbar-burger burger" data-hidden="true" data-target="navigation">
@@ -143,7 +143,7 @@
             {% else %}
               <p class="article-content" style="float:left;">{{ post.content }}</p>
             {% endif %}
-             <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-primary">Continue Reading</a>
+             <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-primary">查看更多</a>
 					</div>
 				</article>
         {% endfor %}
@@ -206,7 +206,7 @@
       <h5 class="widget-title"><span>Tags</span></h5>
       <ul class="list-inline widget-list-inline">
         {% for mt in common_tags %}
-         <li class="list-inline-item"><a href="#!">#{{mt}}</a>
+         <li class="list-inline-item"><a href="{% url 'post-tagged' mt.id %}">#{{mt}}</a>
          </li>
         {% endfor %}
       </ul>
