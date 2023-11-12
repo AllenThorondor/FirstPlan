@@ -135,20 +135,23 @@
 					<p>{{ post.content }}</p>
 				</div>
 			</div>
+      {% for photo in photos %}
+      <div class="column is-10-desktop">
+        <div class="column is-12 mb-3">
+          <div class="post-slider">
+            <img src="{{ photo.image.url }}" class="" alt="post-thumb">
+          </div>
+        </div>
+        <div class="is-justify-content-center">
+          <div class="content">
+            <p>{{ photo.story }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
 		</article>
 	</div>
-  {% for photo in photos %}
-    <div class="column is-12 mb-3">
-      <div class="post-slider">
-        <img src="{{ photo.image.url }}" class="" alt="post-thumb">
-      </div>
-    </div>
-    <div class="column is-10-desktop">
-      <div class="content">
-        <p>{{ photo.story }}</p>
-      </div>
-    </div>
-  {% endfor %}
+
 </section>
 
    <footer class="section-sm pb-0 border-top border-default">
@@ -156,7 +159,7 @@
          <div class="columns is-multiline is-justify-content-space-between">
             <div class="column is-3-desktop">
                <a class="mb-5 is-block" href="index.html">
-                  <img class="" width="150px" src="{% static 'blog/images/logo.png' %}" alt="LogBook">
+                  <!--img class="" width="150px" src="{% static 'blog/images/logo.png' %}" alt="LogBook"-->
                </a>
                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
             </div>
